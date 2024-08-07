@@ -67,13 +67,11 @@ const pageEnter = (container) => {
 barba.init({
   transitions: [
     {
-      name: 'default-transition',
+      name: 'default',
       async leave(data) {
         const done = this.async()
         pageExit(data.current.container)
-
         await delay(1000)
-
         done()
       },
       enter(data) {
@@ -89,15 +87,19 @@ barba.init({
       namespace: 'home',
       beforeEnter(data) {
         projectSliderAnimation(data.next.container)
-        splitText(data.next.container)
         slideUp(data.next.container)
+      },
+      afterEnter(data) {
+        splitText(data.next.container)
       },
     },
     {
       namespace: 'studio',
       beforeEnter(data) {
-        splitText(data.next.container)
         slideUp(data.next.container)
+      },
+      afterEnter(data) {
+        splitText(data.next.container)
       },
     },
     {
@@ -120,5 +122,5 @@ barba.hooks.afterEnter(() => {
   setTimeout(() => {
     window.scrollTo(0, 0)
     ScrollTrigger.clearScrollMemory('manual')
-  }, 100)
+  }, 500)
 })

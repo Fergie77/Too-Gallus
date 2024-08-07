@@ -24,9 +24,9 @@ export const splitText = (container) => {
       stagger: splittedText.words.length > 50 ? 0 : 0.01,
       duration: 1,
       ease: 'power2.inOut',
-      onComplete: () => {
-        splittedText.revert()
-      },
+      // onComplete: () => {
+      //   splittedText.revert()
+      // },
     })
   })
 }
