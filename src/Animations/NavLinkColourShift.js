@@ -49,16 +49,16 @@ export const navLinkColourShift = () => {
       },
     })
 
-    setTimeout(() => {
-      splittedTextArray.forEach((element) => {
-        gsap.to(element.chars, {
-          color: 'red',
-          stagger: 0.1,
-          duration: 0.5,
-          ease: 'power2.inOut',
-        })
-      })
-    }, 1000)
+    // setTimeout(() => {
+    //   splittedTextArray.forEach((element) => {
+    //     gsap.to(element.chars, {
+    //       color: 'red',
+    //       stagger: 0.1,
+    //       duration: 0.5,
+    //       ease: 'power2.inOut',
+    //     })
+    //   })
+    // }, 1000)
   })
 }
 
