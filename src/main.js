@@ -2,6 +2,9 @@ import barba from '@barba/core'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { fadeInImage } from './Animations/FadeInImage'
+import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
+import { footerScroller } from './Animations/FooterScroller'
 import { navLinkColourShift } from './Animations/NavLinkColourShift'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 import { slideUp } from './Animations/SlideUp'
@@ -33,6 +36,12 @@ const pageExit = (container) => {
     scale: 1.2,
     ease: 'power2.inOut',
   })
+  gsap.to('[animation="scale-down"], .background-image', {
+    opacity: 0,
+    duration: 1,
+    scale: 0.8,
+    ease: 'power2.inOut',
+  })
   gsap.to(container.querySelectorAll('[animation="blur"]'), {
     opacity: 0,
     filter: 'blur(50px)',
@@ -49,7 +58,7 @@ const pageEnter = (container) => {
     scale: 0.8,
     ease: 'power2.inOut',
   })
-  gsap.from('.section_footer, [animation="scale"]', {
+  gsap.from('.section_footer, [animation="scale"], .background-image', {
     opacity: 0,
     duration: 1,
     scale: 0.8,
@@ -78,7 +87,7 @@ barba.init({
         pageEnter(data.next.container)
       },
       once(data) {
-        navLinkColourShift(data)
+        navLinkColourShift(data.next.container)
       },
     },
   ],
@@ -91,15 +100,20 @@ barba.init({
       },
       afterEnter(data) {
         splitText(data.next.container)
+        fadeInProjectBlock(data.next.container)
       },
     },
     {
       namespace: 'studio',
       beforeEnter(data) {
         slideUp(data.next.container)
+        fadeInImage(data.next.container)
       },
       afterEnter(data) {
         splitText(data.next.container)
+        setTimeout(() => {
+          ScrollTrigger.refresh()
+        }, 500)
       },
     },
     {
@@ -115,12 +129,18 @@ barba.hooks.beforeLeave(() => {
   ScrollTrigger.killAll()
 })
 
-barba.hooks.afterEnter(() => {
-  setTimeout(() => {
-    ScrollTrigger.refresh()
-  }, 100)
-  setTimeout(() => {
-    window.scrollTo(0, 0)
-    ScrollTrigger.clearScrollMemory('manual')
-  }, 500)
+barba.hooks.enter(() => {
+  window.scrollTo(0, 0)
+  ScrollTrigger.clearScrollMemory('manual')
+})
+
+barba.hooks.afterEnter((data) => {
+  footerScroller(data.next.container)
+  var vids = data.next.container.querySelectorAll('video')
+  vids.forEach((vid) => {
+    var playPromise = vid.play()
+    if (playPromise !== undefined) {
+      playPromise.then(() => {}).catch(() => {})
+    }
+  })
 })
