@@ -5,7 +5,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { fadeInImage } from './Animations/FadeInImage'
 import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
 import { footerScroller } from './Animations/FooterScroller'
-import { navLinkColourShift } from './Animations/NavLinkColourShift'
+import {
+  navLinkColourEnter,
+  navLinkColourLeave,
+  registerNavLinkObservers,
+} from './Animations/NavLinkColourShift'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
@@ -87,7 +91,7 @@ barba.init({
         pageEnter(data.next.container)
       },
       once(data) {
-        navLinkColourShift(data.next.container)
+        registerNavLinkObservers(data.next.container)
       },
     },
   ],
@@ -125,8 +129,9 @@ barba.init({
   ],
 })
 
-barba.hooks.beforeLeave(() => {
+barba.hooks.beforeLeave((data) => {
   ScrollTrigger.killAll()
+  navLinkColourLeave(data)
 })
 
 barba.hooks.enter(() => {
@@ -143,4 +148,5 @@ barba.hooks.afterEnter((data) => {
       playPromise.then(() => {}).catch(() => {})
     }
   })
+  navLinkColourEnter(data)
 })

@@ -1,65 +1,54 @@
 import gsap from 'gsap'
-import Observer from 'gsap/Observer'
 import SplitType from 'split-type'
 
-export const navLinkColourShift = () => {
-  gsap.registerPlugin(Observer)
+let splittedTextArray = []
 
+export const registerNavLinkObservers = () => {
   const navLinks = document.querySelectorAll('.navbar_link')
-  let splittedTextArray = []
 
   navLinks.forEach((element) => {
     const splittedText = SplitType.create(element)
     splittedTextArray.push(splittedText)
   })
+}
 
-  navLinks.forEach((element, index) => {
-    Observer.create({
-      target: element,
-      onClick: () => {
-        gsap.to(splittedTextArray[index].chars, {
-          color: 'white',
-          stagger: 0.1,
-          duration: 0.5,
-          ease: 'power2.inOut',
-          onStart: () => {
-            splittedTextArray[index].elements[0].classList.add('skew')
-          },
-          onComplete: () => {
-            splittedTextArray[index].elements[0].classList.add('w--current')
-          },
-        })
-        // Animate all other elements
-        splittedTextArray.forEach((text, i) => {
-          if (i !== index) {
-            gsap.to(text.chars, {
-              color: '#717070', // Change the color or any other property
-              stagger: 0.1,
-              duration: 0.5,
-              ease: 'power2.inOut',
-              onStart: () => {
-                text.elements[0].classList.remove('skew')
-              },
-              onComplete: () => {
-                text.elements[0].classList.remove('w--current')
-              },
-            })
-          }
-        })
-      },
-    })
+export const navLinkColourLeave = (data) => {
+  const previousPageSplittedText = Array.from(splittedTextArray).find(
+    (item) =>
+      item.elements[0]?.getAttribute('namespace') == data.current.namespace
+  )
 
-    // setTimeout(() => {
-    //   splittedTextArray.forEach((element) => {
-    //     gsap.to(element.chars, {
-    //       color: 'red',
-    //       stagger: 0.1,
-    //       duration: 0.5,
-    //       ease: 'power2.inOut',
-    //     })
-    //   })
-    // }, 1000)
+  gsap.to(previousPageSplittedText.chars, {
+    color: '#717070', // Change the color or any other property
+    stagger: 0.1,
+    duration: 0.5,
+    ease: 'power2.inOut',
+    onStart: () => {
+      previousPageSplittedText.elements[0].classList.remove('skew')
+    },
+    onComplete: () => {
+      previousPageSplittedText.elements[0].classList.remove('w--current')
+    },
   })
 }
 
-//separate the observer out so that it's applied once on page load, then use it to run the colour function instead of adding each transition.
+export const navLinkColourEnter = (data) => {
+  let nextPageSplittedText = []
+
+  nextPageSplittedText = Array.from(splittedTextArray).find(
+    (item) => item.elements[0]?.getAttribute('namespace') == data.next.namespace
+  )
+
+  gsap.to(nextPageSplittedText.chars, {
+    color: '#ffffff', // Change the color or any other property
+    stagger: 0.1,
+    duration: 0.5,
+    ease: 'power2.inOut',
+    onStart: () => {
+      nextPageSplittedText.elements[0].classList.add('skew')
+    },
+    onComplete: () => {
+      nextPageSplittedText.elements[0].classList.add('w--current')
+    },
+  })
+}
