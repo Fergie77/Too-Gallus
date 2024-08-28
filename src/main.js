@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import { fadeInImage } from './Animations/FadeInImage'
 import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
+import { FooterLink } from './Animations/FooterLink'
 import { footerScroller } from './Animations/FooterScroller'
 import {
   navLinkColourEnter,
@@ -149,4 +150,5 @@ barba.hooks.afterEnter((data) => {
     }
   })
   navLinkColourEnter(data)
+  FooterLink()
 })
