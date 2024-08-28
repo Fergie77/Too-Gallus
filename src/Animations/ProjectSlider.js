@@ -8,7 +8,9 @@ export const projectSliderAnimation = (container) => {
     const slider = new KeenSlider(element, {
       selector: '.project-background-video',
       slides: {
-        perView: 2,
+        perView: () => {
+          return window.innerWidth <= 768 ? 0.5 : 2
+        },
       },
       loop: true,
       renderMode: 'performance',
