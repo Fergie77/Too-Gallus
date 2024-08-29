@@ -127,6 +127,12 @@ barba.init({
         splitText(data.next.container)
       },
     },
+    {
+      namespace: 'projects',
+      beforeEnter(data) {
+        projectSliderAnimation(data.next.container)
+      },
+    },
   ],
 })
 
