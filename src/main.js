@@ -14,7 +14,6 @@ import {
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 import { ScrollingList } from './Animations/ScrollingList'
 import { slideUp } from './Animations/SlideUp'
-import { splitRGB } from './Animations/SplitRGB'
 import { splitText } from './Animations/SplitText'
 
 if (history.scrollRestoration) {
@@ -79,8 +78,6 @@ const pageEnter = (container) => {
     ease: 'power2.inOut',
   })
 }
-
-splitRGB()
 
 barba.init({
   transitions: [
