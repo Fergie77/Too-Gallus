@@ -12,7 +12,9 @@ import {
   registerNavLinkObservers,
 } from './Animations/NavLinkColourShift'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
+import { ScrollingList } from './Animations/ScrollingList'
 import { slideUp } from './Animations/SlideUp'
+import { splitRGB } from './Animations/SplitRGB'
 import { splitText } from './Animations/SplitText'
 
 if (history.scrollRestoration) {
@@ -78,6 +80,8 @@ const pageEnter = (container) => {
   })
 }
 
+splitRGB()
+
 barba.init({
   transitions: [
     {
@@ -101,11 +105,15 @@ barba.init({
       namespace: 'home',
       beforeEnter(data) {
         projectSliderAnimation(data.next.container)
+
         slideUp(data.next.container)
       },
       afterEnter(data) {
         splitText(data.next.container)
         fadeInProjectBlock(data.next.container)
+        requestAnimationFrame(() => {
+          ScrollingList(data.next.container)
+        })
       },
     },
     {
@@ -120,6 +128,11 @@ barba.init({
           ScrollTrigger.refresh()
         }, 500)
       },
+    },
+    {
+      namespace: 'test',
+
+      afterEnter() {},
     },
     {
       namespace: 'contact',
