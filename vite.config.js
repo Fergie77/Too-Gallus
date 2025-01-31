@@ -4,6 +4,12 @@ import eslintPlugin from 'vite-plugin-eslint'
 // vite.config.js
 export default defineConfig({
   plugins: [eslintPlugin({ cache: false })],
+  root: './src',
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
   server: {
     host: 'localhost',
     cors: '*',

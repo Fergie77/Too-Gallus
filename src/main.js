@@ -13,6 +13,7 @@ import {
 } from './Animations/NavLinkColourShift'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 import { ScrollingList } from './Animations/ScrollingList'
+import initShaderAnimation from './Animations/ShaderAnimation'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
 
@@ -129,7 +130,9 @@ barba.init({
     {
       namespace: 'test',
 
-      afterEnter() {},
+      afterEnter() {
+        initShaderAnimation()
+      },
     },
     {
       namespace: 'contact',
