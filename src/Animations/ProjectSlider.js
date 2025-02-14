@@ -9,7 +9,7 @@ export const projectSliderAnimation = (container) => {
       selector: '.project-background-video',
       slides: {
         perView: () => {
-          return window.innerWidth <= 768 ? 0.5 : 2
+          return window.innerWidth <= 768 ? 0.5 : 2.1
         },
       },
       loop: true,

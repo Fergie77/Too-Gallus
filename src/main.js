@@ -2,6 +2,7 @@ import barba from '@barba/core'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { CTALink } from './Animations/CTALink'
 import { fadeInImage } from './Animations/FadeInImage'
 import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
 import { FooterLink } from './Animations/FooterLink'
@@ -14,6 +15,7 @@ import {
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 import { ScrollingList } from './Animations/ScrollingList'
 import initShaderAnimation from './Animations/ShaderAnimation'
+import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
 
@@ -103,7 +105,7 @@ barba.init({
       namespace: 'home',
       beforeEnter(data) {
         projectSliderAnimation(data.next.container)
-
+        slideDown(data.next.container)
         slideUp(data.next.container)
       },
       afterEnter(data) {
@@ -170,4 +172,5 @@ barba.hooks.afterEnter((data) => {
   })
   navLinkColourEnter(data)
   FooterLink()
+  CTALink()
 })

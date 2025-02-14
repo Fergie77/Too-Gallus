@@ -19,7 +19,7 @@ export const navLinkColourLeave = (data) => {
   )
 
   gsap.to(previousPageSplittedText.chars, {
-    color: '#717070', // Change the color or any other property
+    color: '#a1a4a7', // Change the color or any other property
     stagger: 0.1,
     duration: 0.5,
     ease: 'power2.inOut',
