@@ -31,7 +31,7 @@ function delay(n) {
     }, n)
   })
 }
-
+console.log('hello')
 const pageExit = (container) => {
   gsap.to(container.querySelectorAll('img'), {
     opacity: 0,
