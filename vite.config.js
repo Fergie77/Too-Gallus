@@ -21,6 +21,7 @@ export default defineConfig({
   build: {
     minify: true,
     manifest: true,
+    outDir: 'dist',
     rollupOptions: {
       input: './src/main.js',
       output: {
