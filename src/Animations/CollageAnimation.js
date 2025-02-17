@@ -8,6 +8,7 @@ export const CollageAnimation = (container) => {
     'custom',
     'M0,0 C0.01,0.074 0.03,0.414 0.054,0.502 0.082,0.604 0.154,0.742 0.2,0.8 0.252,0.865 0.374,0.981 1,0.981 '
   )
+  //const hardExpo = 'circ.inOut'
   if (!collage) return
 
   gsap.set(collage.parentElement, {
@@ -16,7 +17,7 @@ export const CollageAnimation = (container) => {
 
   const mainTl = gsap.timeline({
     ease: 'none',
-    delay: 1,
+    //delay: 2,
     onComplete: () => {
       // masterTl.play(0)
       mainTl.play(0)
@@ -42,20 +43,20 @@ export const CollageAnimation = (container) => {
   mainTl.to(collage, {
     rotateY: 360,
     z: 0,
-    duration: 3,
-    ease: hardExpo,
+    duration: 1.5,
+    ease: 'expo.in',
   })
 
   const offsetX = [
-    -300, //-4
+    -200, //-4
     -120, //-3
     -150, //-2
     -90, //-1
     0, //0
     60, //1
-    200, //2
+    100, //2
     80, //3
-    300, //4
+    200, //4
   ]
   const offsetY = [
     -100, //-4
@@ -66,7 +67,7 @@ export const CollageAnimation = (container) => {
     200, //1
     120, //2
     -80, //3
-    100, //4
+    150, //4
   ]
   const images = collage.querySelectorAll('.collage-animation_image-wrapper')
 
@@ -116,5 +117,5 @@ export const CollageAnimation = (container) => {
   })
 
   mainTl.add(openingTl, '0')
-  mainTl.add(closingTl, '-=3.8')
+  mainTl.add(closingTl, '-=1.8')
 }

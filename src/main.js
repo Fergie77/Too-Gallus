@@ -122,6 +122,7 @@ barba.init({
       beforeEnter(data) {
         slideUp(data.next.container)
         fadeInImage(data.next.container)
+        CollageAnimation(data.next.container)
       },
       afterEnter(data) {
         splitText(data.next.container)
