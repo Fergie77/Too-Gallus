@@ -11,8 +11,10 @@ export const CollageAnimation = (container) => {
   //const hardExpo = 'circ.inOut'
   if (!collage) return
 
+  const isMobile = window.matchMedia('(max-width: 479px)').matches
+
   gsap.set(collage.parentElement, {
-    transformPerspective: 2000,
+    transformPerspective: isMobile ? 6000 : 2000,
   })
 
   const mainTl = gsap.timeline({
