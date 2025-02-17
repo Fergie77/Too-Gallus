@@ -15,7 +15,6 @@ import {
 } from './Animations/NavLinkColourShift'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 import { ScrollingList } from './Animations/ScrollingList'
-import initShaderAnimation from './Animations/ShaderAnimation'
 import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
@@ -129,13 +128,6 @@ barba.init({
         setTimeout(() => {
           ScrollTrigger.refresh()
         }, 500)
-      },
-    },
-    {
-      namespace: 'test',
-
-      afterEnter() {
-        initShaderAnimation()
       },
     },
     {
