@@ -14,7 +14,7 @@ export const CollageAnimation = (container) => {
   const isMobile = window.matchMedia('(max-width: 479px)').matches
 
   gsap.set(collage.parentElement, {
-    transformPerspective: isMobile ? 6000 : 2000,
+    transformPerspective: 2000,
   })
 
   const mainTl = gsap.timeline({
@@ -50,15 +50,15 @@ export const CollageAnimation = (container) => {
   })
 
   const offsetX = [
-    -200, //-4
-    -120, //-3
-    -150, //-2
-    -90, //-1
+    -200 * (isMobile ? 0.5 : 1), //-4
+    -120 * (isMobile ? 0.5 : 1), //-3
+    -150 * (isMobile ? 0.5 : 1), //-2
+    -90 * (isMobile ? 0.5 : 1), //-1
     0, //0
-    60, //1
-    100, //2
-    80, //3
-    200, //4
+    60 * (isMobile ? 0.5 : 1), //1
+    100 * (isMobile ? 0.5 : 1), //2
+    80 * (isMobile ? 0.5 : 1), //3
+    200 * (isMobile ? 0.5 : 1), //4
   ]
   const offsetY = [
     -100, //-4
