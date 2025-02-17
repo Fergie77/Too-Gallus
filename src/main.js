@@ -2,6 +2,7 @@ import barba from '@barba/core'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { CollageAnimation } from './Animations/CollageAnimation'
 import { CTALink } from './Animations/CTALink'
 import { fadeInImage } from './Animations/FadeInImage'
 import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
@@ -146,6 +147,12 @@ barba.init({
       namespace: 'projects',
       beforeEnter(data) {
         projectSliderAnimation(data.next.container)
+      },
+    },
+    {
+      namespace: 'animation-test',
+      beforeEnter(data) {
+        CollageAnimation(data.next.container)
       },
     },
   ],
