@@ -6,7 +6,7 @@ export const FooterLink = () => {
 
   if (!supportsHover) return // Exit if it's a touch device
 
-  const footerLinks = document.querySelectorAll('.footer_link, .button')
+  const footerLinks = document.querySelectorAll('.footer_link')
 
   footerLinks.forEach((link) => {
     // Create arrow element
