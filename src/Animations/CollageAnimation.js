@@ -19,10 +19,9 @@ export const CollageAnimation = (container) => {
 
   const mainTl = gsap.timeline({
     ease: 'none',
-    //delay: 2,
     onComplete: () => {
       // masterTl.play(0)
-      mainTl.play(0)
+      //mainTl.play(0)
     },
   })
 
@@ -117,6 +116,15 @@ export const CollageAnimation = (container) => {
     duration: 1.5,
     ease: 'expo.inOut',
   })
+  closingTl.to(
+    images,
+    {
+      opacity: 0,
+      duration: 1.5,
+      ease: 'expo.inOut',
+    },
+    '<0.7'
+  )
 
   mainTl.add(openingTl, '0')
   mainTl.add(closingTl, '-=1.8')

@@ -5,7 +5,7 @@ export const heroLogoSlide = (container) => {
   gsap.registerPlugin(ScrollTrigger)
   const text = container.querySelectorAll('[animation="hero-logo-slide"]')
 
-  const isMobile = matchMedia('(max-width: 479px)').matches
+  const isMobile = matchMedia('(max-width: 767px)').matches
 
   text.forEach((element) => {
     const tl = gsap.timeline({ paused: true })

@@ -9,6 +9,22 @@ export const registerNavLinkObservers = () => {
   navLinks.forEach((element) => {
     const splittedText = SplitType.create(element)
     splittedTextArray.push(splittedText)
+
+    const linkUnderline = document.createElement('div')
+    linkUnderline.classList.add('link_underline')
+    element.appendChild(linkUnderline)
+
+    element.addEventListener('mouseenter', () => {
+      linkUnderline.classList.add('is-hovered')
+    })
+
+    element.addEventListener('mouseleave', () => {
+      linkUnderline.classList.remove('is-hovered')
+    })
+
+    element.addEventListener('click', () => {
+      linkUnderline.classList.remove('is-hovered')
+    })
   })
 }
 
