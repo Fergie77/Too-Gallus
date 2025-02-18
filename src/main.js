@@ -15,6 +15,7 @@ import {
 } from './Animations/NavLinkColourShift'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 import { ScrollingList } from './Animations/ScrollingList'
+import { siteLoader } from './Animations/SiteLoader'
 import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
@@ -31,7 +32,7 @@ function delay(n) {
     }, n)
   })
 }
-console.log('hello')
+
 const pageExit = (container) => {
   gsap.to(container.querySelectorAll('img'), {
     opacity: 0,
@@ -82,73 +83,75 @@ const pageEnter = (container) => {
   })
 }
 
-barba.init({
-  transitions: [
-    {
-      name: 'default',
-      async leave(data) {
-        const done = this.async()
-        pageExit(data.current.container)
-        await delay(1000)
-        done()
+siteLoader().then(() => {
+  barba.init({
+    transitions: [
+      {
+        name: 'default',
+        async leave(data) {
+          const done = this.async()
+          pageExit(data.current.container)
+          await delay(1000)
+          done()
+        },
+        enter(data) {
+          pageEnter(data.next.container)
+        },
+        once(data) {
+          registerNavLinkObservers(data.next.container)
+        },
       },
-      enter(data) {
-        pageEnter(data.next.container)
+    ],
+    views: [
+      {
+        namespace: 'home',
+        beforeEnter(data) {
+          projectSliderAnimation(data.next.container)
+          slideDown(data.next.container)
+          slideUp(data.next.container)
+        },
+        afterEnter(data) {
+          splitText(data.next.container)
+          fadeInProjectBlock(data.next.container)
+          requestAnimationFrame(() => {
+            ScrollingList(data.next.container)
+          })
+        },
       },
-      once(data) {
-        registerNavLinkObservers(data.next.container)
+      {
+        namespace: 'studio',
+        beforeEnter(data) {
+          slideUp(data.next.container)
+          fadeInImage(data.next.container)
+          CollageAnimation(data.next.container)
+        },
+        afterEnter(data) {
+          splitText(data.next.container)
+          setTimeout(() => {
+            ScrollTrigger.refresh()
+          }, 500)
+        },
       },
-    },
-  ],
-  views: [
-    {
-      namespace: 'home',
-      beforeEnter(data) {
-        projectSliderAnimation(data.next.container)
-        slideDown(data.next.container)
-        slideUp(data.next.container)
+      {
+        namespace: 'contact',
+        beforeEnter(data) {
+          splitText(data.next.container)
+        },
       },
-      afterEnter(data) {
-        splitText(data.next.container)
-        fadeInProjectBlock(data.next.container)
-        requestAnimationFrame(() => {
-          ScrollingList(data.next.container)
-        })
+      {
+        namespace: 'projects',
+        beforeEnter(data) {
+          projectSliderAnimation(data.next.container)
+        },
       },
-    },
-    {
-      namespace: 'studio',
-      beforeEnter(data) {
-        slideUp(data.next.container)
-        fadeInImage(data.next.container)
-        CollageAnimation(data.next.container)
+      {
+        namespace: 'animation-test',
+        beforeEnter(data) {
+          CollageAnimation(data.next.container)
+        },
       },
-      afterEnter(data) {
-        splitText(data.next.container)
-        setTimeout(() => {
-          ScrollTrigger.refresh()
-        }, 500)
-      },
-    },
-    {
-      namespace: 'contact',
-      beforeEnter(data) {
-        splitText(data.next.container)
-      },
-    },
-    {
-      namespace: 'projects',
-      beforeEnter(data) {
-        projectSliderAnimation(data.next.container)
-      },
-    },
-    {
-      namespace: 'animation-test',
-      beforeEnter(data) {
-        CollageAnimation(data.next.container)
-      },
-    },
-  ],
+    ],
+  })
 })
 
 barba.hooks.beforeLeave((data) => {
