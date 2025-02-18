@@ -5,6 +5,23 @@ import { Odometer } from 'odometer_countup'
 
 export const siteLoader = () => {
   return new Promise((resolve) => {
+    const lastVisit = localStorage.getItem('lastVisit')
+    const today = new Date().toDateString()
+
+    if (lastVisit === today) {
+      // User has visited today, skip animation
+      const blocks = document.querySelectorAll('.loader_block')
+      const background = document.querySelector('.loader_background')
+      const nav = document.querySelector('.loader-transition-stage_wrapper')
+
+      gsap.set([blocks, background, nav], { opacity: 0 })
+      resolve()
+      return
+    }
+
+    // Store today's date as the last visit
+    localStorage.setItem('lastVisit', today)
+
     const countUp = new CountUp('initial-odometer', 100, {
       startVal: 0,
       duration: 3, // Duration in seconds
@@ -40,14 +57,14 @@ export const siteLoader = () => {
       z: (index) => {
         return (index - mainAxis.children.length / 2) * 10
       },
-      duration: 1,
+      duration: 0.5,
       ease: 'expo.inOut',
     })
     tl.to(
       blocks,
       {
         opacity: 1,
-        duration: 0.5,
+        duration: 0.25,
         stagger: 0.1,
         ease: 'expo.inOut',
       },
@@ -58,7 +75,7 @@ export const siteLoader = () => {
       countUp.el,
       {
         opacity: 1,
-        duration: 0.5,
+        duration: 0.25,
         ease: 'expo.inOut',
       },
       '<'
@@ -67,7 +84,7 @@ export const siteLoader = () => {
       mainAxis,
       {
         rotateY: 360,
-        duration: 3,
+        duration: 1.5,
         ease: 'none',
         onComplete: () => {
           state = Flip.getState(blocks, {
