@@ -8,6 +8,7 @@ import { fadeInImage } from './Animations/FadeInImage'
 import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
 import { FooterLink } from './Animations/FooterLink'
 import { footerScroller } from './Animations/FooterScroller'
+import { heroLogoSlide } from './Animations/HeroLogoSlide'
 import {
   navLinkColourEnter,
   navLinkColourLeave,
@@ -109,6 +110,7 @@ siteLoader().then(() => {
           projectSliderAnimation(data.next.container)
           slideDown(data.next.container)
           slideUp(data.next.container)
+          heroLogoSlide(data.next.container)
         },
         afterEnter(data) {
           splitText(data.next.container)
