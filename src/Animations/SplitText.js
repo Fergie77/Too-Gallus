@@ -4,7 +4,12 @@ import SplitType from 'split-type'
 
 export const splitText = (container) => {
   gsap.registerPlugin(ScrollTrigger)
-  const text = container.querySelectorAll('[element="split-text"]')
+  const isMobile = window.matchMedia('(max-width: 479px)').matches
+  const text = container.querySelectorAll(
+    isMobile
+      ? '[element="split-text"]:not([disable-mobile])'
+      : '[element="split-text"]'
+  )
   text.forEach((element) => {
     const splittedText = SplitType.create(element)
     splittedText.lines.forEach((element) => {
