@@ -50,12 +50,15 @@ const pageExit = (container) => {
     scale: 1.2,
     ease: 'power2.inOut',
   })
-  gsap.to('[animation="scale-down"], .background-image, .projecthero-image', {
-    opacity: 0,
-    duration: 1,
-    scale: 0.8,
-    ease: 'power2.inOut',
-  })
+  gsap.to(
+    '[animation="scale-down"], .background-image, .projecthero-image, video',
+    {
+      opacity: 0,
+      duration: 1,
+      scale: 0.8,
+      ease: 'power2.inOut',
+    }
+  )
   gsap.to(container.querySelectorAll('[animation="blur"]'), {
     opacity: 0,
     filter: 'blur(50px)',
@@ -72,15 +75,12 @@ const pageEnter = (container) => {
     scale: 0.8,
     ease: 'power2.inOut',
   })
-  gsap.from(
-    '.section_footer, [animation="scale"], .background-image, .projecthero-image',
-    {
-      opacity: 0,
-      duration: 1,
-      scale: 0.8,
-      ease: 'power2.inOut',
-    }
-  )
+  gsap.from('.section_footer, [animation="scale"], .projecthero-image', {
+    opacity: 0,
+    duration: 1,
+    scale: 0.8,
+    ease: 'power2.inOut',
+  })
   gsap.from(container.querySelectorAll('[animation="blur"]'), {
     opacity: 0,
     filter: 'blur(20px)',
