@@ -29,6 +29,7 @@
     "keen-slider": "^6.8.6",
     "odometer_countup": "^1.0.4",
     "ogl": "^1.0.11",
+    "p5": "^1.11.3",
     "split-type": "^0.3.4",
     "three": "^0.171.0"
   }

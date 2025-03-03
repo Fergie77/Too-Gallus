@@ -3,6 +3,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import { CollageAnimation } from './Animations/CollageAnimation'
+//import { CreateASCII } from './Animations/CreateASCII'
+//import { CreateASCIIVideo } from './Animations/CreateASCIIvideo'
 import { CTALink } from './Animations/CTALink'
 import { fadeInImage } from './Animations/FadeInImage'
 import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
@@ -14,13 +16,14 @@ import {
   navLinkColourLeave,
   registerNavLinkObservers,
 } from './Animations/NavLinkColourShift'
+import { OverlappingImages } from './Animations/OverlappingImages'
+import { OverlappingImagesSmooth } from './Animations/OverlappingImagesSmooth'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 import { ScrollingList } from './Animations/ScrollingList'
 import { siteLoader } from './Animations/SiteLoader'
 import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
-
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
@@ -47,7 +50,7 @@ const pageExit = (container) => {
     scale: 1.2,
     ease: 'power2.inOut',
   })
-  gsap.to('[animation="scale-down"], .background-image', {
+  gsap.to('[animation="scale-down"], .background-image, .projecthero-image', {
     opacity: 0,
     duration: 1,
     scale: 0.8,
@@ -69,12 +72,15 @@ const pageEnter = (container) => {
     scale: 0.8,
     ease: 'power2.inOut',
   })
-  gsap.from('.section_footer, [animation="scale"], .background-image', {
-    opacity: 0,
-    duration: 1,
-    scale: 0.8,
-    ease: 'power2.inOut',
-  })
+  gsap.from(
+    '.section_footer, [animation="scale"], .background-image, .projecthero-image',
+    {
+      opacity: 0,
+      duration: 1,
+      scale: 0.8,
+      ease: 'power2.inOut',
+    }
+  )
   gsap.from(container.querySelectorAll('[animation="blur"]'), {
     opacity: 0,
     filter: 'blur(20px)',
@@ -111,6 +117,7 @@ siteLoader().then(() => {
           slideDown(data.next.container)
           slideUp(data.next.container)
           heroLogoSlide(data.next.container)
+          // CreateASCII('ascii-animation-test')
         },
         afterEnter(data) {
           splitText(data.next.container)
@@ -148,8 +155,21 @@ siteLoader().then(() => {
       },
       {
         namespace: 'animation-test',
-        beforeEnter(data) {
-          CollageAnimation(data.next.container)
+        beforeEnter() {
+          OverlappingImages()
+        },
+      },
+      {
+        namespace: 'animation-test-2',
+        beforeEnter() {
+          OverlappingImagesSmooth()
+        },
+      },
+      {
+        namespace: 'blue-star',
+        beforeEnter() {
+          OverlappingImages()
+          OverlappingImagesSmooth()
         },
       },
     ],
