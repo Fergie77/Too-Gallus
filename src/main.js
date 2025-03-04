@@ -1,10 +1,9 @@
 import barba from '@barba/core'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import LazyLoad from 'vanilla-lazyload'
 
 import { CollageAnimation } from './Animations/CollageAnimation'
-//import { CreateASCII } from './Animations/CreateASCII'
-//import { CreateASCIIVideo } from './Animations/CreateASCIIvideo'
 import { CTALink } from './Animations/CTALink'
 import { fadeInImage } from './Animations/FadeInImage'
 import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
@@ -27,6 +26,8 @@ import { splitText } from './Animations/SplitText'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
+
+var myLazyLoad = new LazyLoad()
 
 function delay(n) {
   n = n || 0
@@ -69,6 +70,9 @@ const pageExit = (container) => {
   })
 }
 const pageEnter = (container) => {
+  // After your content has changed...
+  myLazyLoad.update()
+  console.log(myLazyLoad.toLoadCount)
   gsap.from(container.querySelectorAll('img, video'), {
     opacity: 0,
     duration: 1,
