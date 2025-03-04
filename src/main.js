@@ -68,7 +68,7 @@ const pageExit = (container) => {
   })
 }
 const pageEnter = (container) => {
-  gsap.from(container.querySelectorAll('img'), {
+  gsap.from(container.querySelectorAll('img, video'), {
     opacity: 0,
     duration: 1,
     scale: 0.8,
@@ -116,13 +116,13 @@ siteLoader().then(() => {
           slideDown(data.next.container)
           slideUp(data.next.container)
           heroLogoSlide(data.next.container)
-          LazyLoadVideo(data.next.container)
         },
         afterEnter(data) {
           splitText(data.next.container)
           fadeInProjectBlock(data.next.container)
           requestAnimationFrame(() => {
             ScrollingList(data.next.container)
+            LazyLoadVideo(data.next.container)
           })
         },
       },
