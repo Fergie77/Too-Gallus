@@ -69,13 +69,13 @@ const pageExit = (container) => {
   })
 }
 const pageEnter = (container) => {
-  gsap.from(container.querySelectorAll('img'), {
+  gsap.from(container.querySelectorAll('img, video'), {
     opacity: 0,
     duration: 1,
     scale: 0.8,
     ease: 'power2.inOut',
   })
-  gsap.from('.section_footer, [animation="scale"], .projecthero-image', {
+  gsap.from('.section_footer, [animation="scale"]', {
     opacity: 0,
     duration: 1,
     scale: 0.8,
@@ -117,7 +117,6 @@ siteLoader().then(() => {
           slideDown(data.next.container)
           slideUp(data.next.container)
           heroLogoSlide(data.next.container)
-          // CreateASCII('ascii-animation-test')
         },
         afterEnter(data) {
           splitText(data.next.container)
