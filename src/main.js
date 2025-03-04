@@ -68,13 +68,13 @@ const pageExit = (container) => {
   })
 }
 const pageEnter = (container) => {
-  gsap.from(container.querySelectorAll('img, video'), {
+  gsap.from(container.querySelectorAll('img'), {
     opacity: 0,
     duration: 1,
     scale: 0.8,
     ease: 'power2.inOut',
   })
-  gsap.from('.section_footer, [animation="scale"]', {
+  gsap.from('.section_footer, [animation="scale"], .projecthero-image', {
     opacity: 0,
     duration: 1,
     scale: 0.8,
