@@ -146,12 +146,12 @@ siteLoader().then(() => {
           splitText(data.next.container)
         },
       },
-      {
-        namespace: 'projects',
-        beforeEnter(data) {
-          projectSliderAnimation(data.next.container)
-        },
-      },
+      // {
+      //   namespace: 'projects',
+      //   beforeEnter(data) {
+      //     projectSliderAnimation(data.next.container)
+      //   },
+      // },
       {
         namespace: 'animation-test',
         beforeEnter() {
