@@ -1,5 +1,5 @@
 import barba from '@barba/core'
-import gsap from 'gsap'
+//import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import { CollageAnimation } from './Animations/CollageAnimation'
@@ -36,7 +36,7 @@ function delay(n) {
   })
 }
 
-const pageExit = (container) => {
+const pageExit = () => {
   // gsap.to(container.querySelectorAll('img'), {
   //   opacity: 0,
   //   duration: 1,
@@ -67,7 +67,7 @@ const pageExit = (container) => {
   //   y: -100,
   // })
 }
-const pageEnter = (container) => {
+const pageEnter = () => {
   // gsap.from(container.querySelectorAll('img, video'), {
   //   opacity: 0,
   //   duration: 1,
