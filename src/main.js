@@ -60,7 +60,7 @@ const pageExit = (container) => {
   )
   gsap.to(container.querySelectorAll('[animation="blur"]'), {
     opacity: 0,
-    //filter: 'blur(50px)',
+    filter: 'blur(50px)',
     duration: 1.5,
     scale: 1.2,
     ease: 'power2.inOut',
@@ -82,7 +82,7 @@ const pageEnter = (container) => {
   })
   gsap.from(container.querySelectorAll('[animation="blur"]'), {
     opacity: 0,
-    //filter: 'blur(20px)',
+    filter: 'blur(20px)',
     duration: 1,
     scale: 1.2,
     ease: 'power2.inOut',
@@ -187,13 +187,6 @@ barba.hooks.enter(() => {
 
 barba.hooks.afterEnter((data) => {
   footerScroller(data.next.container)
-  // var vids = data.next.container.querySelectorAll('video')
-  // vids.forEach((vid) => {
-  //   var playPromise = vid.play()
-  //   if (playPromise !== undefined) {
-  //     playPromise.then(() => {}).catch(() => {})
-  //   }
-  // })
   navLinkColourEnter(data)
   FooterLink()
   CTALink()
