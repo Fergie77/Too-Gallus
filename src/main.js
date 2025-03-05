@@ -5,10 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CollageAnimation } from './Animations/CollageAnimation'
 import { CTALink } from './Animations/CTALink'
 import { fadeInImage } from './Animations/FadeInImage'
-import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
+//import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
 import { FooterLink } from './Animations/FooterLink'
 import { footerScroller } from './Animations/FooterScroller'
-import { heroLogoSlide } from './Animations/HeroLogoSlide'
+//import { heroLogoSlide } from './Animations/HeroLogoSlide'
 import {
   navLinkColourEnter,
   navLinkColourLeave,
@@ -19,7 +19,7 @@ import { OverlappingImagesSmooth } from './Animations/OverlappingImagesSmooth'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 //import { ScrollingList } from './Animations/ScrollingList'
 import { siteLoader } from './Animations/SiteLoader'
-import { slideDown } from './Animations/SlideDown'
+//import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
 if (history.scrollRestoration) {
@@ -111,15 +111,15 @@ siteLoader().then(() => {
     views: [
       {
         namespace: 'home',
-        beforeEnter(data) {
-          projectSliderAnimation(data.next.container)
-          slideDown(data.next.container)
-          slideUp(data.next.container)
-          heroLogoSlide(data.next.container)
-        },
+        // beforeEnter(data) {
+        //     projectSliderAnimation(data.next.container)
+        //     slideDown(data.next.container)
+        //   slideUp(data.next.container)
+        //     heroLogoSlide(data.next.container)
+        // },
         afterEnter(data) {
-          splitText(data.next.container)
-          fadeInProjectBlock(data.next.container)
+          //   splitText(data.next.container)
+          //   fadeInProjectBlock(data.next.container)
           requestAnimationFrame(() => {
             //ScrollingList(data.next.container)
             LazyLoadVideo(data.next.container)
