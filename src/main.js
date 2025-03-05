@@ -187,13 +187,13 @@ barba.hooks.enter(() => {
 
 barba.hooks.afterEnter((data) => {
   footerScroller(data.next.container)
-  var vids = data.next.container.querySelectorAll('video')
-  vids.forEach((vid) => {
-    var playPromise = vid.play()
-    if (playPromise !== undefined) {
-      playPromise.then(() => {}).catch(() => {})
-    }
-  })
+  // var vids = data.next.container.querySelectorAll('video')
+  // vids.forEach((vid) => {
+  //   var playPromise = vid.play()
+  //   if (playPromise !== undefined) {
+  //     playPromise.then(() => {}).catch(() => {})
+  //   }
+  // })
   navLinkColourEnter(data)
   FooterLink()
   CTALink()
