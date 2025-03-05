@@ -17,7 +17,7 @@ import {
 import { OverlappingImages } from './Animations/OverlappingImages'
 import { OverlappingImagesSmooth } from './Animations/OverlappingImagesSmooth'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
-import { ScrollingList } from './Animations/ScrollingList'
+//import { ScrollingList } from './Animations/ScrollingList'
 import { siteLoader } from './Animations/SiteLoader'
 import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
@@ -121,7 +121,7 @@ siteLoader().then(() => {
           splitText(data.next.container)
           fadeInProjectBlock(data.next.container)
           requestAnimationFrame(() => {
-            ScrollingList(data.next.container)
+            //ScrollingList(data.next.container)
             LazyLoadVideo(data.next.container)
           })
         },
