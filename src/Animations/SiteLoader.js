@@ -16,7 +16,7 @@ export const siteLoader = () => {
       const nav = document.querySelector('.loader-transition-stage_wrapper')
 
       gsap.set([blocks, background, nav], { opacity: 0 })
-      wrapper.style.display = 'none'
+      wrapper?.style.display = 'none'
       resolve()
       return
     }
@@ -132,7 +132,7 @@ export const siteLoader = () => {
                 ease: 'expo.inOut',
                 onStart: resolve,
                 onComplete: () => {
-                  wrapper.style.display = 'none'
+                  wrapper?.style.display = 'none'
                 },
               })
             },
