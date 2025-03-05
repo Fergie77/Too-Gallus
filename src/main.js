@@ -37,56 +37,56 @@ function delay(n) {
 }
 
 const pageExit = (container) => {
-  gsap.to(container.querySelectorAll('img'), {
-    opacity: 0,
-    duration: 1,
-    scale: 0.8,
-    ease: 'power2.inOut',
-  })
-  gsap.to('.section_footer, [animation="scale"]', {
-    opacity: 0,
-    duration: 1,
-    scale: 1.2,
-    ease: 'power2.inOut',
-  })
-  // gsap.to(
-  //   '[animation="scale-down"], .background-image, .projecthero-image, video',
-  //   {
-  //     opacity: 0,
-  //     duration: 1,
-  //     scale: 0.8,
-  //     ease: 'power2.inOut',
-  //   }
-  // )
-  gsap.to(container.querySelectorAll('[animation="blur"]'), {
-    opacity: 0,
-    //filter: 'blur(50px)',
-    duration: 1.5,
-    scale: 1.2,
-    ease: 'power2.inOut',
-    y: -100,
-  })
+  // gsap.to(container.querySelectorAll('img'), {
+  //   opacity: 0,
+  //   duration: 1,
+  //   scale: 0.8,
+  //   ease: 'power2.inOut',
+  // })
+  // gsap.to('.section_footer, [animation="scale"]', {
+  //   opacity: 0,
+  //   duration: 1,
+  //   scale: 1.2,
+  //   ease: 'power2.inOut',
+  // })
+  // // gsap.to(
+  // //   '[animation="scale-down"], .background-image, .projecthero-image, video',
+  // //   {
+  // //     opacity: 0,
+  // //     duration: 1,
+  // //     scale: 0.8,
+  // //     ease: 'power2.inOut',
+  // //   }
+  // // )
+  // gsap.to(container.querySelectorAll('[animation="blur"]'), {
+  //   opacity: 0,
+  //   //filter: 'blur(50px)',
+  //   duration: 1.5,
+  //   scale: 1.2,
+  //   ease: 'power2.inOut',
+  //   y: -100,
+  // })
 }
 const pageEnter = (container) => {
-  gsap.from(container.querySelectorAll('img, video'), {
-    opacity: 0,
-    duration: 1,
-    scale: 0.8,
-    ease: 'power2.inOut',
-  })
-  gsap.from('.section_footer, [animation="scale"], .projecthero-image', {
-    opacity: 0,
-    duration: 1,
-    scale: 0.8,
-    ease: 'power2.inOut',
-  })
-  gsap.from(container.querySelectorAll('[animation="blur"]'), {
-    opacity: 0,
-    //filter: 'blur(20px)',
-    duration: 1,
-    scale: 1.2,
-    ease: 'power2.inOut',
-  })
+  // gsap.from(container.querySelectorAll('img, video'), {
+  //   opacity: 0,
+  //   duration: 1,
+  //   scale: 0.8,
+  //   ease: 'power2.inOut',
+  // })
+  // gsap.from('.section_footer, [animation="scale"], .projecthero-image', {
+  //   opacity: 0,
+  //   duration: 1,
+  //   scale: 0.8,
+  //   ease: 'power2.inOut',
+  // })
+  // gsap.from(container.querySelectorAll('[animation="blur"]'), {
+  //   opacity: 0,
+  //   //filter: 'blur(20px)',
+  //   duration: 1,
+  //   scale: 1.2,
+  //   ease: 'power2.inOut',
+  // })
 }
 
 siteLoader().then(() => {
