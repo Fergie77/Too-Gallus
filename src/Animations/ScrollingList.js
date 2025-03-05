@@ -5,6 +5,7 @@ export const ScrollingList = (container) => {
   gsap.registerPlugin(ScrollTrigger)
   const scrollingList = container.querySelector('.case-studies_collection-list')
 
+  if (!scrollingList) return
   const listItems = scrollingList.querySelectorAll(
     '.case-studies_collection-item'
   )
