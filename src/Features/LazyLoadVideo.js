@@ -10,7 +10,7 @@ export const LazyLoadVideo = (container) => {
       trigger: element,
       start: 'top bottom',
       end: 'bottom top',
-
+      markers: true,
       onEnter: () => {
         element.play()
       },
