@@ -7,6 +7,7 @@ export const siteLoader = () => {
   return new Promise((resolve) => {
     const lastVisit = localStorage.getItem('lastVisit')
     const today = new Date().toDateString()
+    const wrapper = document.querySelector('.loader_wrapper')
 
     if (lastVisit === today) {
       // User has visited today, skip animation
@@ -15,6 +16,7 @@ export const siteLoader = () => {
       const nav = document.querySelector('.loader-transition-stage_wrapper')
 
       gsap.set([blocks, background, nav], { opacity: 0 })
+      wrapper.style.display = 'none'
       resolve()
       return
     }
@@ -129,6 +131,9 @@ export const siteLoader = () => {
                 duration: 1,
                 ease: 'expo.inOut',
                 onStart: resolve,
+                onComplete: () => {
+                  wrapper.style.display = 'none'
+                },
               })
             },
           })
