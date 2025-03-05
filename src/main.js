@@ -16,7 +16,7 @@ import {
 } from './Animations/NavLinkColourShift'
 import { OverlappingImages } from './Animations/OverlappingImages'
 import { OverlappingImagesSmooth } from './Animations/OverlappingImagesSmooth'
-import { projectSliderAnimation } from './Animations/ProjectSlider'
+//import { projectSliderAnimation } from './Animations/ProjectSlider'
 //import { ScrollingList } from './Animations/ScrollingList'
 import { siteLoader } from './Animations/SiteLoader'
 //import { slideDown } from './Animations/SlideDown'
