@@ -43,7 +43,7 @@ export const LazyLoadVideo = (container) => {
           }
         })
       },
-      { threshold: 0.1 }
+      { threshold: 0 }
     )
 
     videos.forEach((video) => observer.observe(video))
