@@ -25,7 +25,7 @@ import { splitText } from './Animations/SplitText'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
-import { LazyLoadVideo } from './Features/LazyLoadVideo'
+//import { LazyLoadVideo } from './Features/LazyLoadVideo'
 
 function delay(n) {
   n = n || 0
@@ -117,14 +117,14 @@ siteLoader().then(() => {
         //   slideUp(data.next.container)
         //     heroLogoSlide(data.next.container)
         // },
-        afterEnter(data) {
-          //   splitText(data.next.container)
-          //   fadeInProjectBlock(data.next.container)
-          requestAnimationFrame(() => {
-            //ScrollingList(data.next.container)
-            LazyLoadVideo(data.next.container)
-          })
-        },
+        // afterEnter(data) {
+        //     splitText(data.next.container)
+        //     fadeInProjectBlock(data.next.container)
+        //   requestAnimationFrame(() => {
+        //     ScrollingList(data.next.container)
+        //     LazyLoadVideo(data.next.container)
+        //   })
+        // },
       },
       {
         namespace: 'studio',
