@@ -3,7 +3,6 @@ import gsap from 'gsap'
 export const FooterLink = () => {
   // Check if the device supports hover
   const supportsHover = window.matchMedia('(hover: hover)').matches
-
   if (!supportsHover) return // Exit if it's a touch device
 
   const footerLinks = document.querySelectorAll('.footer_link, [cta-link]')

@@ -27,7 +27,6 @@ export const LazyLoadVideo = (container) => {
   // })
 
   let videos = container.querySelectorAll('.lazy')
-
   if (videos.length > 0) {
     let observer = new IntersectionObserver(
       (entries, observer) => {

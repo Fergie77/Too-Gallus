@@ -75,7 +75,7 @@ const pageEnter = (container) => {
     scale: 0.8,
     ease: 'power2.inOut',
   })
-  gsap.from('.section_footer, [animation="scale"], .projecthero-image', {
+  gsap.from('.section_footer, [animation="scale"]', {
     opacity: 0,
     filter: 'blur(20px)',
     duration: 1,
@@ -180,9 +180,10 @@ siteLoader().then(() => {
       },
       {
         namespace: 'blue-star',
-        beforeEnter() {
+        beforeEnter(data) {
           OverlappingImages()
           OverlappingImagesSmooth()
+          LazyLoadVideo(data.next.container)
         },
       },
     ],
@@ -200,8 +201,8 @@ barba.hooks.enter(() => {
 })
 
 barba.hooks.afterEnter((data) => {
+  CTALink(data.next.container)
+  FooterLink()
   footerScroller(data.next.container)
   navLinkColourEnter(data)
-  FooterLink()
-  CTALink()
 })

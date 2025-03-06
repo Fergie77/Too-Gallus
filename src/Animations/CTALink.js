@@ -1,13 +1,12 @@
 import gsap from 'gsap'
 
-export const CTALink = () => {
+export const CTALink = (container) => {
   // Check if the device supports hover
   const supportsHover = window.matchMedia('(hover: hover)').matches
 
   if (!supportsHover) return // Exit if it's a touch device
 
-  const ctaLinks = document.querySelectorAll('[animation="cta-link"]')
-
+  const ctaLinks = container.querySelectorAll('[animation="cta-link"]')
   ctaLinks.forEach((link) => {
     const button = link.querySelector('.cta-button')
 
