@@ -157,6 +157,13 @@ siteLoader().then(() => {
         namespace: 'projects',
         beforeEnter(data) {
           projectSliderAnimation(data.next.container)
+          LazyLoadVideo(data.next.container)
+        },
+      },
+      {
+        namespace: 'project',
+        beforeEnter(data) {
+          LazyLoadVideo(data.next.container)
         },
       },
       {
