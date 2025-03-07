@@ -1,3 +1,7 @@
+// Local imports first
+import { LazyLoadVideo } from './Features/LazyLoadVideo'
+
+// ... other local imports ...
 import barba from '../node_modules/@barba/core'
 import gsap from '../node_modules/gsap'
 import { ScrollTrigger } from '../node_modules/gsap/ScrollTrigger'
@@ -25,7 +29,6 @@ import { splitText } from './Animations/SplitText'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
-import { LazyLoadVideo } from './Features/LazyLoadVideo'
 
 function delay(n) {
   n = n || 0

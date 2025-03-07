@@ -1,9 +1,7 @@
 import { defineConfig } from 'vite'
-import eslintPlugin from 'vite-plugin-eslint'
 
 // vite.config.js
 export default defineConfig({
-  plugins: [eslintPlugin({ cache: false })],
   root: './src',
   resolve: {
     alias: {
@@ -19,21 +17,18 @@ export default defineConfig({
     },
   },
   build: {
-    minify: true,
-    manifest: true,
-    outDir: 'dist',
+    lib: {
+      entry: 'main.js',
+      name: 'TooGallus',
+      fileName: 'too-gallus',
+      formats: ['umd'],
+    },
     rollupOptions: {
-      input: './src/main.js',
+      external: [],
       output: {
-        format: 'umd',
-        entryFileNames: 'main.js',
-        esModule: false,
-        compact: true,
-        globals: {
-          jquery: '$',
-        },
+        globals: {},
       },
-      external: ['jquery'],
     },
   },
+  plugins: [], // Remove any ESLint plugins here
 })
