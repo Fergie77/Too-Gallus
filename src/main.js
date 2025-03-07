@@ -2,9 +2,9 @@
 import { LazyLoadVideo } from './Features/LazyLoadVideo'
 
 // ... other local imports ...
-import barba from '../node_modules/@barba/core'
-import gsap from '../node_modules/gsap'
-import { ScrollTrigger } from '../node_modules/gsap/ScrollTrigger'
+import barba from '@barba/core'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import { CollageAnimation } from './Animations/CollageAnimation'
 import { CTALink } from './Animations/CTALink'
@@ -29,6 +29,8 @@ import { splitText } from './Animations/SplitText'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
+
+console.log('test purge')
 
 function delay(n) {
   n = n || 0
