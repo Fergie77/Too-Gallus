@@ -1,4 +1,4 @@
-import barba from '@barba/core'
+import barba from './node_modules/@barba/core'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
