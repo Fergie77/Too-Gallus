@@ -1,6 +1,6 @@
-import barba from './node_modules/@barba/core'
-import gsap from './node_modules/gsap'
-import { ScrollTrigger } from './node_modules/gsap/ScrollTrigger'
+import barba from '../node_modules/@barba/core'
+import gsap from '../node_modules/gsap'
+import { ScrollTrigger } from '../node_modules/gsap/ScrollTrigger'
 
 import { CollageAnimation } from './Animations/CollageAnimation'
 import { CTALink } from './Animations/CTALink'
