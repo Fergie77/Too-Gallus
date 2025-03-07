@@ -30,8 +30,6 @@ if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
 
-console.log('test purge')
-
 function delay(n) {
   n = n || 0
   return new Promise((done) => {
@@ -74,6 +72,7 @@ const pageExit = (container) => {
   })
 }
 const pageEnter = (container) => {
+  console.log('test purge')
   gsap.from(container.querySelectorAll('img, video'), {
     opacity: 0,
     duration: 1,
