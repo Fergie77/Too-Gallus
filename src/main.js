@@ -22,6 +22,7 @@ import { OverlappingImages } from './Animations/OverlappingImages'
 import { OverlappingImagesSmooth } from './Animations/OverlappingImagesSmooth'
 import { projectSliderAnimation } from './Animations/ProjectSlider'
 import { ScrollingList } from './Animations/ScrollingList'
+import { ScrollingListTest } from './Animations/ScrollingListTest'
 import { siteLoader } from './Animations/SiteLoader'
 import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
@@ -71,8 +72,8 @@ const pageExit = (container) => {
     y: -100,
   })
 }
+
 const pageEnter = (container) => {
-  console.log('test purge')
   gsap.from(container.querySelectorAll('img, video'), {
     opacity: 0,
     duration: 1,
@@ -188,6 +189,12 @@ siteLoader().then(() => {
           OverlappingImages()
           OverlappingImagesSmooth()
           LazyLoadVideo(data.next.container)
+        },
+      },
+      {
+        namespace: 'scrolling-list-test',
+        beforeEnter(data) {
+          ScrollingListTest(data.next.container)
         },
       },
     ],
