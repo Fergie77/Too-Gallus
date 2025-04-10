@@ -13,6 +13,7 @@ import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
 import { FooterLink } from './Animations/FooterLink'
 import { footerScroller } from './Animations/FooterScroller'
 import { heroLogoSlide } from './Animations/HeroLogoSlide'
+import { NavGradientOverlay } from './Animations/NavGradientOverlay'
 import {
   navLinkColourEnter,
   navLinkColourLeave,
@@ -27,6 +28,7 @@ import { siteLoader } from './Animations/SiteLoader'
 import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
+
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
@@ -39,6 +41,8 @@ function delay(n) {
     }, n)
   })
 }
+
+NavGradientOverlay()
 
 const pageExit = (container) => {
   gsap.to(container.querySelectorAll('img'), {
