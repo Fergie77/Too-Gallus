@@ -2,12 +2,6 @@ import { defineConfig } from 'vite'
 
 // vite.config.js
 export default defineConfig({
-  root: './src',
-  resolve: {
-    alias: {
-      '@': '/src',
-    },
-  },
   server: {
     host: 'localhost',
     cors: '*',
@@ -17,16 +11,13 @@ export default defineConfig({
     },
   },
   build: {
-    lib: {
-      entry: 'main.js',
-      name: 'TooGallus',
-      fileName: 'too-gallus',
-      formats: ['umd'],
-    },
+    minify: true,
+    manifest: true,
     rollupOptions: {
-      external: [],
+      input: './src/main.js',
       output: {
-        globals: {},
+        entryFileNames: 'main.js',
+        compact: true,
       },
     },
   },
