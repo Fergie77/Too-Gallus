@@ -30,5 +30,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [], // Remove any ESLint plugins here
+  plugins: [],
 })
