@@ -1,7 +1,10 @@
 [build]
-  command = "npm run build"
+  command = "npm install && npm run build"
   publish = "dist"
   base = "."
+
+[build.environment]
+  NODE_VERSION = "18"
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
