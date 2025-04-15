@@ -17,17 +17,17 @@ export default defineConfig({
     },
   },
   build: {
-    lib: {
-      entry: 'main.js',
-      name: 'TooGallus',
-      fileName: 'too-gallus',
-      formats: ['umd'],
-    },
+    minify: true,
+    manifest: true,
     rollupOptions: {
-      external: [],
+      input: './src/main.js',
       output: {
-        globals: {},
+        format: 'umd',
+        entryFileNames: 'main.js',
+        esModule: false,
+        compact: true,
       },
+      external: [],
     },
   },
   plugins: [],
