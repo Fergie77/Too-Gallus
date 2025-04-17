@@ -1,7 +1,6 @@
 import gsap from 'gsap'
 
 export const NavGradientOverlay = () => {
-  console.log('NavGradientOverlay')
   const navGradient = document.querySelector('.nav_gradient-overlay')
   const navMenu = document.querySelector('.nav_menu') // Assuming .nav_menu is the hover target
 
