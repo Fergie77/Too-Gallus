@@ -19,10 +19,6 @@ export const CollageAnimation = (container) => {
 
   const mainTl = gsap.timeline({
     ease: 'none',
-    onComplete: () => {
-      // masterTl.play(0)
-      //mainTl.play(0)
-    },
   })
 
   mainTl.to(collage, {

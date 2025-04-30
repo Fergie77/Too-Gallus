@@ -2,9 +2,11 @@ import gsap from 'gsap'
 import SplitType from 'split-type'
 
 let splittedTextArray = []
+let isTransitioning = false
 
 export const registerNavLinkObservers = () => {
   const navLinks = document.querySelectorAll('.navbar_link')
+  const nav = document.querySelector('.nav_container')
 
   navLinks.forEach((element) => {
     const splittedText = SplitType.create(element)
@@ -25,10 +27,30 @@ export const registerNavLinkObservers = () => {
     element.addEventListener('click', () => {
       linkUnderline.classList.remove('is-hovered')
     })
+    element.addEventListener('mousedown', () => {
+      if (!isTransitioning) {
+        gsap.to(nav, {
+          scale: 0.95,
+          duration: 0.2,
+          ease: 'power2.inOut',
+        })
+      }
+    })
+
+    element.addEventListener('mouseup', () => {
+      if (!isTransitioning) {
+        gsap.to(nav, {
+          scale: 1,
+          duration: 0.2,
+          ease: 'power2.inOut',
+        })
+      }
+    })
   })
 }
 
 export const navLinkColourLeave = (data) => {
+  isTransitioning = true
   const previousPageSplittedText = Array.from(splittedTextArray).find(
     (item) =>
       item.elements[0]?.getAttribute('namespace') == data.current.namespace
@@ -62,6 +84,7 @@ export const navLinkColourEnter = (data) => {
     ease: 'power2.inOut',
     onStart: () => {
       nextPageSplittedText.elements[0].classList.add('skew')
+      isTransitioning = false
     },
     onComplete: () => {
       nextPageSplittedText.elements[0].classList.add('w--current')

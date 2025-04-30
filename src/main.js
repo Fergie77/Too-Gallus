@@ -28,7 +28,14 @@ import { siteLoader } from './Animations/SiteLoader'
 import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
-
+import { Ticker } from './Animations/Magic City/Ticker'
+import { OverlappingMCImages } from './Animations/Magic City/OverlappingMCimages'
+import {
+  ArticleHoverBlur,
+  ArticleHoverScale,
+} from './Animations/Magic City/ArticleHover'
+import { MCButtonHover } from './Animations/Magic City/MCButtonHover'
+import { RevealAnimations } from './Animations/Magic City/RevealAnimations'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
@@ -107,6 +114,7 @@ const pageEnter = (container) => {
 
 siteLoader().then(() => {
   barba.init({
+    preventRunning: true,
     transitions: [
       {
         name: 'default',
@@ -199,6 +207,17 @@ siteLoader().then(() => {
         namespace: 'scrolling-list-test',
         beforeEnter(data) {
           ScrollingListTest(data.next.container)
+        },
+      },
+      {
+        namespace: 'mc-home',
+        beforeEnter(data) {
+          Ticker(data.next.container)
+          OverlappingMCImages(data.next.container)
+          ArticleHoverBlur(data.next.container)
+          ArticleHoverScale(data.next.container)
+          MCButtonHover(data.next.container)
+          RevealAnimations(data.next.container)
         },
       },
     ],
