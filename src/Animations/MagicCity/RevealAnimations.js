@@ -66,6 +66,10 @@ export function RevealAnimations(container) {
     const MASK_UPDATE_INTERVAL = 2 // Only update mask every N frames
     let frameCount = 0
 
+    function isSafari() {
+      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+    }
+
     function initThree() {
       scene = new THREE.Scene()
       camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
@@ -194,8 +198,13 @@ export function RevealAnimations(container) {
       if (frameCount % MASK_UPDATE_INTERVAL === 0 || revealFactor >= 1.0) {
         const dataUrl = canvas.toDataURL()
         if (dataUrl !== lastDataUrl) {
-          element.style.webkitMaskImage = `url(${dataUrl})`
-          element.style.maskImage = `url(${dataUrl})`
+          if (isSafari()) {
+            element.style.webkitMaskImage = `url(${dataUrl})`
+            element.style.maskImage = ''
+          } else {
+            element.style.webkitMaskImage = `url(${dataUrl})`
+            element.style.maskImage = `url(${dataUrl})`
+          }
           lastDataUrl = dataUrl
         }
       }
