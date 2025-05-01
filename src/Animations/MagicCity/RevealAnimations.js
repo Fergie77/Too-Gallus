@@ -42,7 +42,7 @@ export function RevealAnimations(container) {
     const canvas = document.createElement('canvas')
     canvas.id = 'shaderCanvas-' + Math.random().toString(36).substr(2, 9) // Unique ID
     canvas.style.position = 'absolute'
-    canvas.style.display = 'none'
+    canvas.style.opacity = '0'
     canvas.style.top = '0'
     canvas.style.left = '0'
     canvas.style.pointerEvents = 'none'
