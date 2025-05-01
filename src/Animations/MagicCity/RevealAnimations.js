@@ -63,7 +63,7 @@ export function RevealAnimations(container) {
     const CANVAS_SCALE = 0.4 // Lower resolution for performance
     let lastDataUrl = ''
     let lastMaskUpdate = 0
-    const MASK_UPDATE_INTERVAL = 2 // Only update mask every N frames
+    const MASK_UPDATE_INTERVAL = isSafari() ? 8 : 2
     let frameCount = 0
 
     function isSafari() {
@@ -198,13 +198,8 @@ export function RevealAnimations(container) {
       if (frameCount % MASK_UPDATE_INTERVAL === 0 || revealFactor >= 1.0) {
         const dataUrl = canvas.toDataURL()
         if (dataUrl !== lastDataUrl) {
-          if (isSafari()) {
-            element.style.webkitMaskImage = `url(${dataUrl})`
-            element.style.maskImage = ''
-          } else {
-            element.style.webkitMaskImage = `url(${dataUrl})`
-            element.style.maskImage = `url(${dataUrl})`
-          }
+          element.style.webkitMaskImage = `url(${dataUrl})`
+          element.style.maskImage = `url(${dataUrl})`
           lastDataUrl = dataUrl
         }
       }
