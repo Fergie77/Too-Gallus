@@ -28,14 +28,14 @@ import { siteLoader } from './Animations/SiteLoader'
 import { slideDown } from './Animations/SlideDown'
 import { slideUp } from './Animations/SlideUp'
 import { splitText } from './Animations/SplitText'
-import { Ticker } from './Animations/Magic City/Ticker'
-import { OverlappingMCImages } from './Animations/Magic City/OverlappingMCimages'
+import { Ticker } from './Animations/MagicCity/Ticker.js'
+import { OverlappingMCImages } from './Animations/MagicCity/OverlappingMCImages'
 import {
   ArticleHoverBlur,
   ArticleHoverScale,
-} from './Animations/Magic City/ArticleHover'
-import { MCButtonHover } from './Animations/Magic City/MCButtonHover'
-import { RevealAnimations } from './Animations/Magic City/RevealAnimations'
+} from './Animations/MagicCity/ArticleHover.js'
+import { MCButtonHover } from './Animations/MagicCity/MCButtonHover.js'
+import { RevealAnimations } from './Animations/MagicCity/RevealAnimations.js'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
