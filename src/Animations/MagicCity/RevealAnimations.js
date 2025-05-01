@@ -42,6 +42,7 @@ export function RevealAnimations(container) {
     const canvas = document.createElement('canvas')
     canvas.id = 'shaderCanvas-' + Math.random().toString(36).substr(2, 9) // Unique ID
     canvas.style.position = 'absolute'
+    canvas.style.display = 'none'
     canvas.style.top = '0'
     canvas.style.left = '0'
     canvas.style.pointerEvents = 'none'
@@ -112,7 +113,7 @@ export function RevealAnimations(container) {
           uv += 0.5;
 
           vec2 motion = vec2(u_time * 0.1);
-            
+
           uv = uv * 3.0 + motion + vec2(u_seed * 0.1);
 
           float n = fbm(uv);
