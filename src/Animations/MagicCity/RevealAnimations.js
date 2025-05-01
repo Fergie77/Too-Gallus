@@ -42,7 +42,6 @@ export function RevealAnimations(container) {
     const canvas = document.createElement('canvas')
     canvas.id = 'shaderCanvas-' + Math.random().toString(36).substr(2, 9) // Unique ID
     canvas.style.position = 'absolute'
-    canvas.style.display = 'none'
     canvas.style.top = '0'
     canvas.style.left = '0'
     canvas.style.pointerEvents = 'none'
@@ -98,7 +97,7 @@ export function RevealAnimations(container) {
         float fbm(vec2 p) {
           float total = 0.0;
           float amplitude = 0.5;
-          for (int i = 0; i < 5; i++) {
+          for (int i = 0; i < 3; i++) {
             total += noise(p) * amplitude;
             p *= 2.0;
             amplitude *= 0.5;
@@ -112,13 +111,9 @@ export function RevealAnimations(container) {
           uv.x *= u_resolution.x / u_resolution.y;
           uv += 0.5;
 
-          vec2 motion = vec2(
-            sin(u_time * 0.1) * 0.5,
-            cos(u_time * 0.15) * 0.5
-          );
-
-          mat2 rot = mat2(cos(0.3), -sin(0.3), sin(0.3), cos(0.3));
-          uv = rot * (uv * 3.0 + motion + vec2(u_seed * 0.1, u_seed * 0.15));
+          vec2 motion = vec2(u_time * 0.1);
+            
+          uv = uv * 3.0 + motion + vec2(u_seed * 0.1);
 
           float n = fbm(uv);
 
@@ -140,8 +135,13 @@ export function RevealAnimations(container) {
 
     function resize() {
       const rect = element.getBoundingClientRect()
-      renderer.setSize(rect.width, rect.height)
-      uniforms.u_resolution.value.set(rect.width, rect.height)
+      const pixelRatio = window.devicePixelRatio || 1
+      renderer.setSize(rect.width * pixelRatio, rect.height * pixelRatio)
+      renderer.setPixelRatio(pixelRatio)
+      uniforms.u_resolution.value.set(
+        rect.width * pixelRatio,
+        rect.height * pixelRatio
+      )
     }
 
     let startTime = null
