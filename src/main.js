@@ -115,6 +115,7 @@ const pageEnter = (container) => {
 siteLoader().then(() => {
   barba.init({
     preventRunning: true,
+    prevent: ({ el }) => el.classList && el.classList.contains('no-barba'),
     transitions: [
       {
         name: 'default',
