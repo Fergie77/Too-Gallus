@@ -25,7 +25,7 @@ export function OverlappingMCImages() {
         const offset = isMobile ? (i - middleIndex) * 0.3 : i - middleIndex
         return {
           x: mobileDirection === 'vertical' ? 0 : 320 * offset,
-          y: mobileDirection === 'vertical' ? 300 * offset : 0,
+          y: mobileDirection === 'vertical' ? 200 * offset : 0,
           z: 100 - 350 * Math.abs(offset),
         }
       })
