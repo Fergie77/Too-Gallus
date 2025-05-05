@@ -36,6 +36,7 @@ import {
 } from './Animations/MagicCity/ArticleHover.js'
 import { MCButtonHover } from './Animations/MagicCity/MCButtonHover.js'
 import { RevealAnimations } from './Animations/MagicCity/RevealAnimations.js'
+import { ArticleSlider } from './Animations/MagicCity/ArticleSlider.js'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
@@ -219,6 +220,7 @@ siteLoader().then(() => {
           ArticleHoverScale(data.next.container)
           MCButtonHover(data.next.container)
           RevealAnimations(data.next.container)
+          ArticleSlider(data.next.container)
         },
       },
     ],
