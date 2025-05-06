@@ -24,8 +24,9 @@
   },
   "dependencies": {
     "@barba/core": "^2.10.0",
+    "@lottiefiles/dotlottie-web": "^0.44.0",
     "countup.js": "^2.8.0",
-    "gsap": "^3.9.1",
+    "gsap": "^3.13.0",
     "keen-slider": "^6.8.6",
     "odometer_countup": "^1.0.4",
     "ogl": "^1.0.11",
