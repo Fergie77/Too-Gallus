@@ -5,6 +5,7 @@ export function NavMenu() {
   const navMenuWrapper = document.querySelector('.mc_nav')
   const backgroundBlur = navMenuWrapper.querySelector('.background-blur')
   const navMenu = navMenuWrapper.querySelector('.mc_nav_links_wrapper')
+  const navButton = navMenuWrapper.querySelector('.link_wrapper')
   const navMenuLinks = navMenu.querySelectorAll('.mc_nav_link')
   const dividingLine = navMenu.querySelectorAll('.dividing-line-horizontal')
   const navMenuButton = navMenuWrapper.querySelector('.mc_nav_hamburger')
@@ -78,6 +79,7 @@ export function NavMenu() {
     },
     '<'
   )
+
   tl.fromTo(
     dividingLine,
     {
@@ -89,6 +91,16 @@ export function NavMenu() {
       ease: 'power2.inOut',
     },
     '<'
+  )
+  tl.fromTo(
+    navButton,
+    {
+      opacity: 0,
+    },
+    {
+      opacity: 1,
+    },
+    '<0.5'
   )
   navMenuButton.addEventListener('click', () => {
     navMenu.classList.toggle('wrapper_open')
