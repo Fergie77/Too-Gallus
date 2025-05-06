@@ -3,6 +3,7 @@ import SplitText from 'gsap/SplitText'
 
 export function NavMenu() {
   const navMenuWrapper = document.querySelector('.mc_nav')
+  const backgroundBlur = navMenuWrapper.querySelector('.background-blur')
   const navMenu = navMenuWrapper.querySelector('.mc_nav_links_wrapper')
   const navMenuLinks = navMenu.querySelectorAll('.mc_nav_link')
   const dividingLine = navMenu.querySelectorAll('.dividing-line-horizontal')
@@ -23,6 +24,7 @@ export function NavMenu() {
   tl.set(navMenu, {
     display: 'flex',
   })
+
   tl.fromTo(
     navMenu,
     {
@@ -36,6 +38,16 @@ export function NavMenu() {
     '<'
   )
 
+  tl.fromTo(
+    backgroundBlur,
+    {
+      opacity: 0,
+    },
+    {
+      opacity: 1,
+    },
+    '<'
+  )
   tl.fromTo(
     splitText.words,
     {
