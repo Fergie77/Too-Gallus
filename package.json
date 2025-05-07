@@ -31,6 +31,7 @@
     "odometer_countup": "^1.0.4",
     "ogl": "^1.0.11",
     "p5": "^1.11.3",
+    "resize-end": "^1.1.1",
     "split-type": "^0.3.4",
     "three": "^0.171.0",
     "vanilla-lazyload": "^19.1.3"
