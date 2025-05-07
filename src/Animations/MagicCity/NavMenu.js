@@ -35,7 +35,7 @@ export function NavMenu() {
   }
 
   function setMobileNav() {
-    gsap.set(navMenu, { display: 'flex' })
+    gsap.set(navMenu, { display: 'none' })
     gsap.set(navMenu, { opacity: 0 })
     gsap.set(backgroundBlur, { opacity: 0 })
     gsap.set(navButton, { opacity: 0 })
@@ -49,6 +49,7 @@ export function NavMenu() {
   function MobileNavAnimation() {
     if (mobileNavAnimationInitialized) return
     mobileNavAnimationInitialized = true
+    tl.set(navMenu, { display: 'flex' })
     tl.to(navMenu, { duration: 0.5, ease: 'power2.inOut', opacity: 1 }, '<')
     tl.to(backgroundBlur, { opacity: 1 }, '<')
     splitTextArr.forEach((splitText) => {
