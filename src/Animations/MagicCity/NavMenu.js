@@ -1,5 +1,6 @@
 import gsap from 'gsap'
 import SplitText from 'gsap/SplitText'
+import { disablePageScroll, enablePageScroll } from '@fluejs/noscroll'
 
 export function NavMenu() {
   let classObserver = null
@@ -79,10 +80,12 @@ export function NavMenu() {
           lottieAnimation.setDirection(1)
           lottieAnimation.play()
           tl.play()
+          disablePageScroll()
         } else {
           lottieAnimation.setDirection(-1)
           lottieAnimation.play()
           tl.reverse()
+          enablePageScroll()
         }
       }
     }
