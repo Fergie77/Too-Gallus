@@ -21,7 +21,8 @@ export function NavMenu() {
 
   let splitTextArr = Array.from(navMenuLinks).map((link) =>
     SplitText.create(link, {
-      type: 'words',
+      type: 'words, lines',
+      mask: 'lines',
     })
   )
 
