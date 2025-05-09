@@ -3,7 +3,7 @@
 export async function fetchRAEvents() {
   try {
     const res = await fetch(
-      'https://toogallus.netlify.app/.netlify/functions/getEvents?promoterId=69759'
+      'https://toogallus.netlify.app/.netlify/functions/getEvents?promoterId=69759&page=1&pageSize=10'
     )
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
     const events = await res.json()
