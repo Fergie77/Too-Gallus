@@ -34,6 +34,7 @@ exports.handler = async function (event) {
               contentUrl
               images { filename }
               venue { name }
+              promoters { id name }
             }
           }
         }
