@@ -1,4 +1,4 @@
-export async function handler() {
+exports.handler = async function () {
   const response = await fetch('https://ra.co/graphql', {
     method: 'POST',
     headers: {
