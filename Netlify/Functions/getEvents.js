@@ -2,6 +2,13 @@ exports.handler = async function (event) {
   const eventId = event.queryStringParameters && event.queryStringParameters.id
   const promoterId =
     event.queryStringParameters && event.queryStringParameters.promoterId
+  const page =
+    parseInt(event.queryStringParameters && event.queryStringParameters.page) ||
+    1
+  const pageSize =
+    parseInt(
+      event.queryStringParameters && event.queryStringParameters.pageSize
+    ) || 10
 
   let query, variables
   if (eventId) {
@@ -21,31 +28,27 @@ exports.handler = async function (event) {
     `
     variables = { id: eventId }
   } else if (promoterId) {
-    // Query events by promoter
+    // Query events by promoter with pagination and more fields
     query = `
-      query GET_PROMOTER_EVENTS($filters: FilterInputDtoInput, $pageSize: Int) {
-        eventListings(filters: $filters, pageSize: $pageSize, page: 1, sort: { attending: { priority: 1, order: DESCENDING } }) {
+      query GET_PROMOTER_EVENTS($promoterId: ID!, $page: Int!, $pageSize: Int!) {
+        eventListings(
+          filters: { promoters: { eq: $promoterId } }
+          page: $page
+          pageSize: $pageSize
+          sort: { date: { order: DESCENDING } }
+        ) {
           data {
-            event {
-              id
-              title
-              attending
-              date
-              contentUrl
-              images { filename }
-              venue { name }
-              promoters { id name }
-            }
+            id
+            title
+            date
+            venue { id name contentUrl }
+            artists { id name contentUrl }
+            contentUrl
           }
         }
       }
     `
-    variables = {
-      filters: {
-        promoters: { eq: parseInt(promoterId) },
-      },
-      pageSize: 10,
-    }
+    variables = { promoterId: parseInt(promoterId), page, pageSize }
   } else {
     // Default: popular events
     query = `
@@ -90,11 +93,8 @@ exports.handler = async function (event) {
   if (eventId) {
     result = json.data.event
   } else if (promoterId) {
-    // Filter for events where the promoter is in the promoters array
-    result = (json.data.eventListings.data || []).filter(
-      (e) =>
-        e.event.promoters && e.event.promoters.some((p) => p.id == promoterId)
-    )
+    // The new query returns data directly, not wrapped in event
+    result = json.data.eventListings.data || []
   } else {
     result = json.data.eventListings.data
   }
