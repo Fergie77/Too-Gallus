@@ -85,14 +85,26 @@ exports.handler = async function (event) {
   })
 
   const json = await response.json()
+
+  let result
+  if (eventId) {
+    result = json.data.event
+  } else if (promoterId) {
+    // Filter for events where the promoter is in the promoters array
+    result = (json.data.eventListings.data || []).filter(
+      (e) =>
+        e.event.promoters && e.event.promoters.some((p) => p.id == promoterId)
+    )
+  } else {
+    result = json.data.eventListings.data
+  }
+
   return {
     statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type',
     },
-    body: JSON.stringify(
-      eventId ? json.data.event : json.data.eventListings.data
-    ),
+    body: JSON.stringify(result),
   }
 }
