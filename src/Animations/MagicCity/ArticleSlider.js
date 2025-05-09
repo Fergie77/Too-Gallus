@@ -1,8 +1,6 @@
 import KeenSlider from 'keen-slider'
 
-export function ArticleSlider(container) {
-  const layoutSelector = '.mc_blog_recent-posts_layout'
-  const itemSelector = '.mc_blog_recent-posts_item'
+export function ArticleSlider(container, layoutSelector, itemSelector) {
   let slider = null
   const layout = container.querySelector(layoutSelector)
   if (!layout) return

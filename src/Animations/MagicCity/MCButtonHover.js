@@ -10,12 +10,23 @@ export function MCButtonHover(container) {
     })
   })
 
-  psuedoButtons.forEach((button) => {
+  psuedoButtons.forEach((button, selectedIndex) => {
     button.addEventListener('mouseenter', () => {
+      console.log(selectedIndex)
+      psuedoButtons.forEach((button, index) => {
+        if (index !== selectedIndex) {
+          button.classList.add('unselected')
+        }
+      })
       button.querySelector('.mc_button').classList.add('hover')
       button.querySelector('.mc_button_arrow').classList.add('expanded')
     })
     button.addEventListener('mouseleave', () => {
+      psuedoButtons.forEach((button, index) => {
+        if (index !== selectedIndex) {
+          button.classList.remove('unselected')
+        }
+      })
       button.querySelector('.mc_button').classList.remove('hover')
       button.querySelector('.mc_button_arrow').classList.remove('expanded')
     })

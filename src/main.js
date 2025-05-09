@@ -39,6 +39,8 @@ import { RevealAnimations } from './Animations/MagicCity/RevealAnimations.js'
 import { ArticleSlider } from './Animations/MagicCity/ArticleSlider.js'
 import { NavMenu } from './Animations/MagicCity/NavMenu.js'
 import { SplineReveal } from './Animations/MagicCity/SplineReveal.js'
+import { ArchivedActsHeadings } from './Animations/MagicCity/ArchivedActsHeadings.js'
+import { fetchRAEvents, logRAEvents } from './Features/RAEvents'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
@@ -222,9 +224,31 @@ siteLoader().then(() => {
           ArticleHoverScale(data.next.container)
           MCButtonHover(data.next.container)
           RevealAnimations(data.next.container)
-          ArticleSlider(data.next.container)
+          ArticleSlider(
+            data.next.container,
+            '.mc_blog_recent-posts_layout',
+            '.mc_blog_recent-posts_item'
+          )
           NavMenu()
           SplineReveal()
+          ArchivedActsHeadings()
+        },
+      },
+      {
+        namespace: 'mc-events',
+        beforeEnter(data) {
+          Ticker(data.next.container)
+          ArticleSlider(
+            data.next.container,
+            '.mc_featured-blogs_layout',
+            '.mc_blog_recent-posts_item'
+          )
+          ArticleSlider(
+            data.next.container,
+            '.mc_upcoming-events_slider_wrapper',
+            '.mc_upcoming-events_item'
+          )
+          fetchRAEvents().then((events) => logRAEvents(events))
         },
       },
     ],
