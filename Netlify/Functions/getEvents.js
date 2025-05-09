@@ -1,14 +1,5 @@
 exports.handler = async function (event) {
   const eventId = event.queryStringParameters && event.queryStringParameters.id
-  const promoterId =
-    event.queryStringParameters && event.queryStringParameters.promoterId
-  const page =
-    parseInt(event.queryStringParameters && event.queryStringParameters.page) ||
-    1
-  const pageSize =
-    parseInt(
-      event.queryStringParameters && event.queryStringParameters.pageSize
-    ) || 10
 
   let query, variables
   if (eventId) {
@@ -27,30 +18,6 @@ exports.handler = async function (event) {
       }
     `
     variables = { id: eventId }
-  } else if (promoterId) {
-    // Query events by promoter with correct filter and nested event fields
-    query = `
-      query GET_PROMOTER_EVENTS($promoterId: ID!, $page: Int!, $pageSize: Int!) {
-        eventListings(
-          filters: { promoter: { eq: $promoterId } }
-          page: $page
-          pageSize: $pageSize
-          sort: { date: { order: DESCENDING } }
-        ) {
-          data {
-            event {
-              id
-              title
-              date
-              venue { id name contentUrl }
-              artists { id name contentUrl }
-              contentUrl
-            }
-          }
-        }
-      }
-    `
-    variables = { promoterId: parseInt(promoterId), page, pageSize }
   } else {
     // Default: popular events
     query = `
@@ -107,9 +74,6 @@ exports.handler = async function (event) {
   let result
   if (eventId) {
     result = json.data.event
-  } else if (promoterId) {
-    // The new query returns data directly, not wrapped in event
-    result = json.data.eventListings.data || []
   } else {
     result = json.data.eventListings.data
   }
