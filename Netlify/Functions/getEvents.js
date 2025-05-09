@@ -89,6 +89,19 @@ exports.handler = async function (event) {
 
   const json = await response.json()
 
+  if (!json.data) {
+    // Log and return the error for debugging
+    console.error('GraphQL error:', json.errors)
+    return {
+      statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+      body: JSON.stringify({ error: 'GraphQL error', details: json.errors }),
+    }
+  }
+
   let result
   if (eventId) {
     result = json.data.event
