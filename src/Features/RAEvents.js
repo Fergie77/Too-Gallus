@@ -5,7 +5,16 @@ export async function fetchRAEvents() {
     const res = await fetch(
       'https://toogallus.netlify.app/.netlify/functions/getEvents?promoterId=69759&page=1&pageSize=10'
     )
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
+    if (!res.ok) {
+      const errorData = await res.json()
+      // Stringify the details for better logging
+      const details = Array.isArray(errorData.details)
+        ? errorData.details.map((d) => JSON.stringify(d)).join('\n')
+        : JSON.stringify(errorData.details)
+      throw new Error(
+        `HTTP error! status: ${res.status}, error: ${errorData.error}, details: ${details}`
+      )
+    }
     const events = await res.json()
     return events
   } catch (err) {

@@ -28,22 +28,24 @@ exports.handler = async function (event) {
     `
     variables = { id: eventId }
   } else if (promoterId) {
-    // Query events by promoter with pagination and more fields
+    // Query events by promoter with correct filter and nested event fields
     query = `
       query GET_PROMOTER_EVENTS($promoterId: ID!, $page: Int!, $pageSize: Int!) {
         eventListings(
-          filters: { promoters: { eq: $promoterId } }
+          filters: { promoter: { eq: $promoterId } }
           page: $page
           pageSize: $pageSize
           sort: { date: { order: DESCENDING } }
         ) {
           data {
-            id
-            title
-            date
-            venue { id name contentUrl }
-            artists { id name contentUrl }
-            contentUrl
+            event {
+              id
+              title
+              date
+              venue { id name contentUrl }
+              artists { id name contentUrl }
+              contentUrl
+            }
           }
         }
       }
