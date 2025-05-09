@@ -1,5 +1,7 @@
 exports.handler = async function (event) {
   const eventId = event.queryStringParameters && event.queryStringParameters.id
+  const promoterId =
+    event.queryStringParameters && event.queryStringParameters.promoterId
 
   let query, variables
   if (eventId) {
@@ -18,8 +20,33 @@ exports.handler = async function (event) {
       }
     `
     variables = { id: eventId }
+  } else if (promoterId) {
+    // Query events by promoter
+    query = `
+      query GET_PROMOTER_EVENTS($filters: FilterInputDtoInput, $pageSize: Int) {
+        eventListings(filters: $filters, pageSize: $pageSize, page: 1, sort: { attending: { priority: 1, order: DESCENDING } }) {
+          data {
+            event {
+              id
+              title
+              attending
+              date
+              contentUrl
+              images { filename }
+              venue { name }
+            }
+          }
+        }
+      }
+    `
+    variables = {
+      filters: {
+        promoters: { eq: parseInt(promoterId) },
+      },
+      pageSize: 10,
+    }
   } else {
-    // Query popular events (default)
+    // Default: popular events
     query = `
       query GET_POPULAR_EVENTS($filters: FilterInputDtoInput, $pageSize: Int) {
         eventListings(filters: $filters, pageSize: $pageSize, page: 1, sort: { attending: { priority: 1, order: DESCENDING } }) {
