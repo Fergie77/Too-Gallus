@@ -35,6 +35,10 @@ exports.handler = async function () {
   const json = await response.json()
   return {
     statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*', // <-- This is the key line!
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
     body: JSON.stringify(json.data.eventListings.data),
   }
 }
