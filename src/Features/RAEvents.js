@@ -20,7 +20,7 @@ export async function fetchRAEvents(element, id) {
 
     const events = await res.json()
 
-    return events
+    return { events, id }
   } catch (err) {
     console.error('Failed to fetch RA events:', err)
     return []
@@ -64,52 +64,48 @@ export function eventLoaded(element) {
   })
 }
 
-export function setUpcomingRAEvents(events) {
-  const eventArray = Array.isArray(events) ? events : [events]
-  eventArray.forEach(({ event, ...rest }) => {
-    // If the object is a single event, it won't have an 'event' property
-    const e = event || rest
-    const elements = document.querySelectorAll('.mc_upcoming-events_item')
-    elements.forEach((element) => {
-      const image = element.querySelector('.mc_upcoming-events_item_image')
-      const date = element.querySelector('.mc_upcoming-events_item_date')
-      const heading = element.querySelector('.mc_upcoming-events_item_heading')
-      const attending = element.querySelector(
-        '.mc_upcoming-events_item_attending'
-      )
-      const venue = element.querySelector('.mc_upcoming-events_item_location')
-      const link = element.querySelector('.mc_upcoming-events_item_link')
+export function setUpcomingRAEvents(events, id) {
+  console.log('events', events, id)
 
-      // Remove Webflow image attributes and set only the RA image
-      if (image) {
-        image.removeAttribute('srcset')
-        image.removeAttribute('sizes')
-        image.src = e.images[0]?.filename ?? 'No image'
-      }
-      if (date) {
-        const d = new Date(e.date)
-        const options = { weekday: 'short', day: '2-digit', month: 'long' }
-        // Format: Sat, 12 April
-        date.textContent = d
-          .toLocaleDateString('en-GB', options)
-          .replace(/\s/, ', ')
-      }
-      if (heading) heading.textContent = e.title
-      if (attending) attending.textContent = e.attending
-      if (venue) venue.textContent = e.venue.name
-      if (link) link.href = `https://ra.co${e.contentUrl}`
-      setTimeout(() => {
-        eventLoaded(element)
-      }, 1000)
-    })
+  const elements = document.querySelectorAll('.mc_upcoming-events_item')
+  elements.forEach((element) => {
+    const image = element.querySelector('.mc_upcoming-events_item_image')
+    const date = element.querySelector('.mc_upcoming-events_item_date')
+    const heading = element.querySelector('.mc_upcoming-events_item_heading')
+    const id = element.querySelector('.mc_upcoming-events_item_id').textContent
+    const attending = element.querySelector(
+      '.mc_upcoming-events_item_attending'
+    )
+    const venue = element.querySelector('.mc_upcoming-events_item_location')
+    const link = element.querySelector('.mc_upcoming-events_item_link')
 
-    console.log({
-      title: e.title,
-      date: new Date(e.date).toLocaleDateString(),
-      venue: e.venue.name,
-      attending: e.attending,
-      link: `https://ra.co${e.contentUrl}`,
-      image: e.images[0]?.filename ?? 'No image',
-    })
+    // Remove Webflow image attributes and set only the RA image
+    if (image) {
+      image.removeAttribute('srcset')
+      image.removeAttribute('sizes')
+      image.src = events.images[0]?.filename ?? 'No image'
+    }
+    if (date) {
+      const d = new Date(events.date)
+      const options = { weekday: 'short', day: '2-digit', month: 'long' }
+      // Format: Sat, 12 April
+      date.textContent = d
+        .toLocaleDateString('en-GB', options)
+        .replace(/\s/, ', ')
+    }
+    if (heading) heading.textContent = events.title
+    if (attending) attending.textContent = events.attending
+    if (venue) venue.textContent = events.venue.name
+    if (link) link.href = `https://ra.co${events.contentUrl}`
+    setTimeout(() => {
+      eventLoaded(element)
+    }, 1000)
   })
+
+  // const eventArray = Array.isArray(events) ? events : [events]
+  // eventArray.forEach(({ event, ...rest }) => {
+  //   // If the object is a single event, it won't have an 'event' property
+  //   const e = event || rest
+
+  // })
 }
