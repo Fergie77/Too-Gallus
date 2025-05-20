@@ -56,6 +56,35 @@ exports.handler = async function (event) {
     }
   }
 
+  // Introspection for EventQueryType enum values
+  if (
+    event.queryStringParameters &&
+    event.queryStringParameters.eventQueryTypes === 'true'
+  ) {
+    const enumQuery = `
+      query IntrospectEventQueryTypeEnum {
+        __type(name: \"EventQueryType\") {
+          name
+          enumValues { name description }
+        }
+      }
+    `
+    const response = await fetch('https://ra.co/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: enumQuery }),
+    })
+    const json = await response.json()
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+      body: JSON.stringify(json),
+    }
+  }
+
   const eventId = event.queryStringParameters && event.queryStringParameters.id
   const idType =
     event.queryStringParameters && event.queryStringParameters.idType
@@ -80,7 +109,7 @@ exports.handler = async function (event) {
         }
       }
     `
-    variables = { id: eventId, type: 'UPCOMING' }
+    variables = { id: eventId, type: 'LATEST' }
   } else if (eventId) {
     // Query a specific event
     query = `
