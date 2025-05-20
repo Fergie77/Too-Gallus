@@ -1,3 +1,25 @@
+const fetch = require('node-fetch')
+
+const introspectionQuery = `
+  query IntrospectionQuery {
+    __schema {
+      types {
+        name
+        kind
+        fields { name }
+      }
+    }
+  }
+`
+
+fetch('https://ra.co/graphql', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ query: introspectionQuery }),
+})
+  .then((res) => res.json())
+  .then((json) => console.log(JSON.stringify(json, null, 2)))
+
 exports.handler = async function (event) {
   const eventId = event.queryStringParameters && event.queryStringParameters.id
 
