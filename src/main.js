@@ -255,7 +255,7 @@ siteLoader().then(() => {
                 '.mc_events_slider_wrapper',
                 '.mc_events_item'
               )
-            }, 2000)
+            }, 1000)
           })
         },
       },
