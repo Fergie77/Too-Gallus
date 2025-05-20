@@ -40,7 +40,11 @@ import { ArticleSlider } from './Animations/MagicCity/ArticleSlider.js'
 import { NavMenu } from './Animations/MagicCity/NavMenu.js'
 import { SplineReveal } from './Animations/MagicCity/SplineReveal.js'
 import { ArchivedActsHeadings } from './Animations/MagicCity/ArchivedActsHeadings.js'
-import { fetchRAEvents, setUpcomingRAEvents } from './Features/RAEvents'
+import {
+  fetchRAEvents,
+  setUpcomingRAEvents,
+  logRAIntrospection,
+} from './Features/RAEvents'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
@@ -257,6 +261,7 @@ siteLoader().then(() => {
               element.querySelector('.mc_upcoming-events_item_id').textContent
             ).then(({ events, id }) => {
               setUpcomingRAEvents(events, id)
+              logRAIntrospection()
             })
           })
         },

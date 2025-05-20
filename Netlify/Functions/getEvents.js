@@ -21,6 +21,41 @@ fetch('https://ra.co/graphql', {
   .catch((err) => console.error('Introspection error:', err))
 
 exports.handler = async function (event) {
+  // Check for introspection request
+  if (
+    event.queryStringParameters &&
+    event.queryStringParameters.introspect === 'true'
+  ) {
+    const introspectionQuery = `
+      query IntrospectionQuery {
+        __schema {
+          types {
+            name
+            kind
+            fields { name }
+          }
+        }
+      }
+    `
+
+    const response = await fetch('https://ra.co/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: introspectionQuery }),
+    })
+
+    const json = await response.json()
+
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+      body: JSON.stringify(json),
+    }
+  }
+
   const eventId = event.queryStringParameters && event.queryStringParameters.id
 
   let query, variables

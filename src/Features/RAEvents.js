@@ -117,3 +117,25 @@ export function setUpcomingRAEvents(events, id) {
     }, 1000)
   })
 }
+
+// Fetch and log GraphQL introspection info from Netlify function
+export async function logRAIntrospection() {
+  console.log('logRAIntrospection')
+  try {
+    const res = await fetch(
+      'https://toogallus.netlify.app/.netlify/functions/getEvents?introspect=true'
+    )
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`)
+    }
+    const introspection = await res.json()
+    console.log('🎛️ RA GraphQL Introspection:', introspection)
+    return introspection
+  } catch (err) {
+    console.error('Failed to fetch RA introspection:', err)
+    return null
+  }
+}
+
+// Optionally, call this function somewhere for debugging:
+// logRAIntrospection()
