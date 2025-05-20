@@ -57,9 +57,31 @@ exports.handler = async function (event) {
   }
 
   const eventId = event.queryStringParameters && event.queryStringParameters.id
+  const idType =
+    event.queryStringParameters && event.queryStringParameters.idType
 
   let query, variables
-  if (eventId) {
+  if (idType === 'promoter' && eventId) {
+    // Query events for a specific promoter
+    query = `
+      query GET_PROMOTER_EVENTS($id: ID!) {
+        promoter(id: $id) {
+          id
+          name
+          events {
+            id
+            title
+            attending
+            date
+            contentUrl
+            images { filename }
+            venue { name }
+          }
+        }
+      }
+    `
+    variables = { id: eventId }
+  } else if (eventId) {
     // Query a specific event
     query = `
       query GET_EVENT($id: ID!) {
@@ -129,7 +151,9 @@ exports.handler = async function (event) {
   }
 
   let result
-  if (eventId) {
+  if (idType === 'promoter' && eventId) {
+    result = json.data.promoter?.events || []
+  } else if (eventId) {
     result = json.data.event
   } else {
     result = json.data.eventListings.data

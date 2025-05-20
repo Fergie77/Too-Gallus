@@ -120,7 +120,6 @@ export function setUpcomingRAEvents(events, id) {
 
 // Fetch and log GraphQL introspection info from Netlify function
 export async function logRAIntrospection() {
-  console.log('logRAIntrospection')
   try {
     const res = await fetch(
       'https://toogallus.netlify.app/.netlify/functions/getEvents?introspect=true'
@@ -139,3 +138,29 @@ export async function logRAIntrospection() {
 
 // Optionally, call this function somewhere for debugging:
 // logRAIntrospection()
+
+export async function fetchPromoterEvents(promoterId) {
+  try {
+    const res = await fetch(
+      `https://toogallus.netlify.app/.netlify/functions/getEvents?id=${promoterId}&idType=promoter`
+    )
+    if (!res.ok) {
+      const errorData = await res.json()
+      const details = Array.isArray(errorData.details)
+        ? errorData.details.map((d) => JSON.stringify(d)).join('\n')
+        : JSON.stringify(errorData.details)
+      throw new Error(
+        `HTTP error! status: ${res.status}, error: ${errorData.error}, details: ${details}`
+      )
+    }
+    const events = await res.json()
+    logRAEvents(events)
+    return events
+  } catch (err) {
+    console.error('Failed to fetch promoter events:', err)
+    return []
+  }
+}
+
+// Demo: Fetch and log events for promoter 69759
+fetchPromoterEvents('69759')
