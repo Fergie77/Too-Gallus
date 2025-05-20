@@ -1,5 +1,4 @@
-const fetch = require('node-fetch')
-
+// Introspection query using the global fetch API (Node 18+)
 const introspectionQuery = `
   query IntrospectionQuery {
     __schema {
@@ -19,6 +18,7 @@ fetch('https://ra.co/graphql', {
 })
   .then((res) => res.json())
   .then((json) => console.log(JSON.stringify(json, null, 2)))
+  .catch((err) => console.error('Introspection error:', err))
 
 exports.handler = async function (event) {
   const eventId = event.queryStringParameters && event.queryStringParameters.id
