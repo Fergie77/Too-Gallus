@@ -167,7 +167,7 @@ export async function fetchPromoterEvents(promoterId, type) {
 
 export async function renderPastEventsForPromoter(promoterId) {
   // Fetch events for the promoter
-  const events = await fetchPromoterEvents(promoterId)
+  const events = await fetchPromoterEvents(promoterId, 'PREVIOUS')
   if (!Array.isArray(events) || events.length === 0) return
 
   // Find the template and container
@@ -210,8 +210,8 @@ export async function renderPastEventsForPromoter(promoterId) {
       image.removeAttribute('sizes')
       image.src = event.images[0].filename
     }
-    // Remove any preload or loader classes
-    clone.classList.remove('preload', 'loading')
+
+    eventLoaded(clone)
     // Append to container
     container.appendChild(clone)
   })
@@ -236,8 +236,6 @@ export async function renderUpcomingEventsForPromoter(promoterId) {
   container
     .querySelectorAll('[mc-element="upcoming-event"]:not(:first-child)')
     .forEach((el) => el.remove())
-
-  console.log('events', events)
 
   // For each event, clone and populate
   events.forEach((event) => {
@@ -266,8 +264,9 @@ export async function renderUpcomingEventsForPromoter(promoterId) {
       image.removeAttribute('sizes')
       image.src = event.images[0].filename
     }
-    // Remove any preload or loader classes
-    clone.classList.remove('preload', 'loading')
+
+    eventLoaded(clone)
+
     // Append to container
     container.appendChild(clone)
   })
