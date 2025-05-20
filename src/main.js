@@ -44,6 +44,8 @@ import {
   fetchRAEvents,
   setUpcomingRAEvents,
   logRAIntrospection,
+  renderPastEventsForPromoter,
+  renderUpcomingEventsForPromoter,
 } from './Features/RAEvents'
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
@@ -249,20 +251,11 @@ siteLoader().then(() => {
           )
           ArticleSlider(
             data.next.container,
-            '.mc_upcoming-events_slider_wrapper',
-            '.mc_upcoming-events_item'
+            '.mc_events_slider_wrapper',
+            '.mc_events_item'
           )
-          const eventElements = data.next.container.querySelectorAll(
-            '.mc_upcoming-events_item'
-          )
-          eventElements.forEach((element) => {
-            fetchRAEvents(
-              element,
-              element.querySelector('.mc_upcoming-events_item_id').textContent
-            ).then(({ events, id }) => {
-              setUpcomingRAEvents(events, id)
-            })
-          })
+          renderPastEventsForPromoter('69759')
+          renderUpcomingEventsForPromoter('69759')
         },
       },
     ],

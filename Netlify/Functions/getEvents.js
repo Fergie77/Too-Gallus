@@ -92,6 +92,8 @@ exports.handler = async function (event) {
   let query, variables
   if (idType === 'promoter' && eventId) {
     // Query events for a specific promoter
+    const eventType =
+      event.queryStringParameters && event.queryStringParameters.eventType
     query = `
       query GET_PROMOTER_EVENTS($id: ID!, $type: EventQueryType!) {
         promoter(id: $id) {
@@ -109,7 +111,7 @@ exports.handler = async function (event) {
         }
       }
     `
-    variables = { id: eventId, type: 'PREVIOUS' }
+    variables = { id: eventId, type: eventType || 'LATEST' }
   } else if (eventId) {
     // Query a specific event
     query = `
