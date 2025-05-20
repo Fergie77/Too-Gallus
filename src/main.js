@@ -246,13 +246,17 @@ siteLoader().then(() => {
             '.mc_featured-blogs_layout',
             '.mc_blog_recent-posts_item'
           )
-          ArticleSlider(
-            data.next.container,
-            '.mc_events_slider_wrapper',
-            '.mc_events_item'
-          )
+
           renderPastEventsForPromoter('69759')
-          renderUpcomingEventsForPromoter('69759')
+          renderUpcomingEventsForPromoter('69759').then(() => {
+            setTimeout(() => {
+              ArticleSlider(
+                data.next.container,
+                '.mc_events_slider_wrapper',
+                '.mc_events_item'
+              )
+            }, 2000)
+          })
         },
       },
     ],

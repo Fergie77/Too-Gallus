@@ -113,16 +113,13 @@ export async function fetchPromoterEvents(promoterId, type) {
       )
     }
     const events = await res.json()
-    //logRAEvents(events)
+
     return events
   } catch (err) {
     console.error('Failed to fetch promoter events:', err)
     return []
   }
 }
-
-// Demo: Fetch and log events for promoter 69759
-//fetchPromoterEvents('69759')
 
 export async function renderPastEventsForPromoter(promoterId) {
   // Fetch events for the promoter
@@ -175,7 +172,7 @@ export async function renderPastEventsForPromoter(promoterId) {
     container.appendChild(clone)
   })
   // Optionally hide the template
-  template.style.display = 'none'
+  template.remove()
 }
 
 export async function renderUpcomingEventsForPromoter(promoterId) {
