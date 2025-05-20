@@ -64,11 +64,11 @@ exports.handler = async function (event) {
   if (idType === 'promoter' && eventId) {
     // Query events for a specific promoter
     query = `
-      query GET_PROMOTER_EVENTS($id: ID!) {
+      query GET_PROMOTER_EVENTS($id: ID!, $type: EventQueryType!) {
         promoter(id: $id) {
           id
           name
-          events {
+          events(type: $type) {
             id
             title
             attending
@@ -80,7 +80,7 @@ exports.handler = async function (event) {
         }
       }
     `
-    variables = { id: eventId }
+    variables = { id: eventId, type: 'UPCOMING' }
   } else if (eventId) {
     // Query a specific event
     query = `

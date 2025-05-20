@@ -261,7 +261,6 @@ siteLoader().then(() => {
               element.querySelector('.mc_upcoming-events_item_id').textContent
             ).then(({ events, id }) => {
               setUpcomingRAEvents(events, id)
-              logRAIntrospection()
             })
           })
         },

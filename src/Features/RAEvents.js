@@ -63,7 +63,7 @@ export function eventLoaded(element) {
 }
 
 export function setUpcomingRAEvents(events, id) {
-  console.log('events', events, id)
+  // console.log('events', events, id)
 
   // Ensure events is always an array
   const eventArray = Array.isArray(events) ? events : [events]
