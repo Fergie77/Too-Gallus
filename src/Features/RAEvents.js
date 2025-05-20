@@ -1,7 +1,5 @@
 import gsap from 'gsap'
 
-// src/Features/RAEvents.js
-
 export async function fetchRAEvents(element, id) {
   try {
     const res = await fetch(
@@ -67,45 +65,55 @@ export function eventLoaded(element) {
 export function setUpcomingRAEvents(events, id) {
   console.log('events', events, id)
 
+  // Ensure events is always an array
+  const eventArray = Array.isArray(events) ? events : [events]
+
   const elements = document.querySelectorAll('.mc_upcoming-events_item')
   elements.forEach((element) => {
     const image = element.querySelector('.mc_upcoming-events_item_image')
     const date = element.querySelector('.mc_upcoming-events_item_date')
     const heading = element.querySelector('.mc_upcoming-events_item_heading')
-    const id = element.querySelector('.mc_upcoming-events_item_id').textContent
+    const idText = element
+      .querySelector('.mc_upcoming-events_item_id')
+      ?.textContent?.trim()
     const attending = element.querySelector(
       '.mc_upcoming-events_item_attending'
     )
     const venue = element.querySelector('.mc_upcoming-events_item_location')
     const link = element.querySelector('.mc_upcoming-events_item_link')
 
+    // Find the event with a matching id
+    const matchedEvent = eventArray.find((e) => {
+      // Support both {event, ...rest} and direct event object
+      const eventObj = e.event || e
+      return String(eventObj.id) === idText
+    })
+
+    if (!matchedEvent) return // Skip if no matching event
+    const eventObj = matchedEvent.event || matchedEvent
+
     // Remove Webflow image attributes and set only the RA image
     if (image) {
       image.removeAttribute('srcset')
       image.removeAttribute('sizes')
-      image.src = events.images[0]?.filename ?? 'No image'
+      image.src =
+        eventObj.images?.[0]?.filename ??
+        'https://cdn.prod.website-files.com/6675303cee30c2e7a7543b50/6808e56c4103fad41924fd1b_000071%20copy.webp'
     }
     if (date) {
-      const d = new Date(events.date)
+      const d = new Date(eventObj.date)
       const options = { weekday: 'short', day: '2-digit', month: 'long' }
       // Format: Sat, 12 April
       date.textContent = d
         .toLocaleDateString('en-GB', options)
         .replace(/\s/, ', ')
     }
-    if (heading) heading.textContent = events.title
-    if (attending) attending.textContent = events.attending
-    if (venue) venue.textContent = events.venue.name
-    if (link) link.href = `https://ra.co${events.contentUrl}`
+    if (heading) heading.textContent = eventObj.title
+    if (attending) attending.textContent = eventObj.attending
+    if (venue) venue.textContent = eventObj.venue?.name
+    if (link) link.href = `https://ra.co${eventObj.contentUrl}`
     setTimeout(() => {
       eventLoaded(element)
     }, 1000)
   })
-
-  // const eventArray = Array.isArray(events) ? events : [events]
-  // eventArray.forEach(({ event, ...rest }) => {
-  //   // If the object is a single event, it won't have an 'event' property
-  //   const e = event || rest
-
-  // })
 }
