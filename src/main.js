@@ -41,9 +41,6 @@ import { NavMenu } from './Animations/MagicCity/NavMenu.js'
 import { SplineReveal } from './Animations/MagicCity/SplineReveal.js'
 import { ArchivedActsHeadings } from './Animations/MagicCity/ArchivedActsHeadings.js'
 import {
-  fetchRAEvents,
-  setUpcomingRAEvents,
-  logRAIntrospection,
   renderPastEventsForPromoter,
   renderUpcomingEventsForPromoter,
 } from './Features/RAEvents'

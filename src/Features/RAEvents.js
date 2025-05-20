@@ -25,24 +25,6 @@ export async function fetchRAEvents(element, id) {
   }
 }
 
-// export function logRAEvents(events) {
-//   //console.log('🎟️ RA Events:')
-//   // If events is not an array, wrap it in an array
-//   const eventArray = Array.isArray(events) ? events : [events]
-//   eventArray.forEach(({ event, ...rest }) => {
-//     // If the object is a single event, it won't have an 'event' property
-//     const e = event || rest
-//     console.log({
-//       title: e.title,
-//       date: new Date(e.date).toLocaleDateString(),
-//       venue: e.venue.name,
-//       attending: e.attending,
-//       link: `https://ra.co${e.contentUrl}`,
-//       image: e.images[0]?.filename ?? 'No image',
-//     })
-//   })
-// }
-
 export function eventLoaded(element) {
   const loadingElements = element.querySelectorAll('.preload')
   const preloaderElements = element.querySelectorAll('.pseudo-element-loader')
@@ -63,8 +45,6 @@ export function eventLoaded(element) {
 }
 
 export function setUpcomingRAEvents(events, id) {
-  // console.log('events', events, id)
-
   // Ensure events is always an array
   const eventArray = Array.isArray(events) ? events : [events]
 
@@ -115,27 +95,6 @@ export function setUpcomingRAEvents(events, id) {
     }, 1000)
   })
 }
-
-// Fetch and log GraphQL introspection info from Netlify function
-export async function logRAIntrospection() {
-  try {
-    const res = await fetch(
-      'https://toogallus.netlify.app/.netlify/functions/getEvents?introspect=true'
-    )
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`)
-    }
-    const introspection = await res.json()
-    console.log('🎛️ RA GraphQL Introspection:', introspection)
-    return introspection
-  } catch (err) {
-    console.error('Failed to fetch RA introspection:', err)
-    return null
-  }
-}
-
-// Optionally, call this function somewhere for debugging:
-// logRAIntrospection()
 
 export async function fetchPromoterEvents(promoterId, type) {
   try {
