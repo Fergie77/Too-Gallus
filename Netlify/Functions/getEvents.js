@@ -109,7 +109,7 @@ exports.handler = async function (event) {
         }
       }
     `
-    variables = { id: eventId, type: 'LATEST' }
+    variables = { id: eventId, type: 'PREVIOUS' }
   } else if (eventId) {
     // Query a specific event
     query = `
