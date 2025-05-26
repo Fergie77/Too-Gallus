@@ -127,25 +127,25 @@ export async function renderPastEventsForPromoter(promoterId) {
   if (!Array.isArray(events) || events.length === 0) return
 
   // Find the template and container
-  const template = document.querySelector('[mc-element="past-event"]')
+  const template = document.querySelector('[mc-event-element="past-event"]')
   if (!template) {
-    console.error('No [mc-element="past-event"] template found!')
+    console.error('No [mc-event-element="past-event"] template found!')
     return
   }
   const container = template.parentElement
 
   // Remove all but the template itself
   container
-    .querySelectorAll('[mc-element="past-event"]:not(:first-child)')
+    .querySelectorAll('[mc-event-element="past-event"]:not(:first-child)')
     .forEach((el) => el.remove())
 
   // For each event, clone and populate
   events.forEach((event) => {
     const clone = template.cloneNode(true)
     // Populate fields (adjust selectors as needed)
-    const heading = clone.querySelector('.mc_events_item_heading')
+    const heading = clone.querySelector('[mc-event-element="heading"]')
     if (heading) heading.textContent = event.title
-    const date = clone.querySelector('.mc_events_item_date')
+    const date = clone.querySelector('[mc-event-element="date"]')
     if (date)
       date.textContent = new Date(event.date)
         .toLocaleDateString('en-GB', {
@@ -154,13 +154,13 @@ export async function renderPastEventsForPromoter(promoterId) {
           month: 'long',
         })
         .replace(/\s/, ', ')
-    const location = clone.querySelector('.mc_events_item_location')
+    const location = clone.querySelector('[mc-event-element="location"]')
     if (location) location.textContent = event.venue?.name || ''
-    const attending = clone.querySelector('.mc_events_item_attending')
+    const attending = clone.querySelector('[mc-event-element="attending"]')
     if (attending) attending.textContent = event.attending
-    const link = clone.querySelector('.mc_events_item_link')
+    const link = clone.querySelector('[mc-event-element="link"]')
     if (link) link.href = `https://ra.co${event.contentUrl}`
-    const image = clone.querySelector('.mc_events_item_image')
+    const image = clone.querySelector('[mc-event-element="image"]')
     if (image && event.images && event.images[0]) {
       image.removeAttribute('srcset')
       image.removeAttribute('sizes')
@@ -181,25 +181,25 @@ export async function renderUpcomingEventsForPromoter(promoterId) {
   if (!Array.isArray(events) || events.length === 0) return
 
   // Find the template and container
-  const template = document.querySelector('[mc-element="upcoming-event"]')
+  const template = document.querySelector('[mc-event-element="upcoming-event"]')
   if (!template) {
-    console.error('No [mc-element="upcoming-event"] template found!')
+    console.error('No [mc-event-element="upcoming-event"] template found!')
     return
   }
   const container = template.parentElement
 
   // Remove all but the template itself
   container
-    .querySelectorAll('[mc-element="upcoming-event"]:not(:first-child)')
+    .querySelectorAll('[mc-event-element="upcoming-event"]:not(:first-child)')
     .forEach((el) => el.remove())
 
   // For each event, clone and populate
   events.forEach((event) => {
     const clone = template.cloneNode(true)
     // Populate fields (adjust selectors as needed)
-    const heading = clone.querySelector('.mc_events_item_heading')
+    const heading = clone.querySelector('[mc-event-element="heading"]')
     if (heading) heading.textContent = event.title
-    const date = clone.querySelector('.mc_events_item_date')
+    const date = clone.querySelector('[mc-event-element="date"]')
     if (date)
       date.textContent = new Date(event.date)
         .toLocaleDateString('en-GB', {
@@ -208,13 +208,13 @@ export async function renderUpcomingEventsForPromoter(promoterId) {
           month: 'long',
         })
         .replace(/\s/, ', ')
-    const location = clone.querySelector('.mc_events_item_location')
+    const location = clone.querySelector('[mc-event-element="location"]')
     if (location) location.textContent = event.venue?.name || ''
-    const attending = clone.querySelector('.mc_events_item_attending')
+    const attending = clone.querySelector('[mc-event-element="attending"]')
     if (attending) attending.textContent = event.attending
-    const link = clone.querySelector('.mc_events_item_link')
+    const link = clone.querySelector('[mc-event-element="link"]')
     if (link) link.href = `https://ra.co${event.contentUrl}`
-    const image = clone.querySelector('.mc_events_item_image')
+    const image = clone.querySelector('[mc-event-element="image"]')
     if (image && event.images && event.images[0]) {
       image.removeAttribute('srcset')
       image.removeAttribute('sizes')
