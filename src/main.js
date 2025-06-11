@@ -256,6 +256,22 @@ siteLoader().then(() => {
           })
         },
       },
+      {
+        namespace: 'royal-enfield',
+        beforeEnter(data) {
+          console.log(data.next.namespace)
+          const script = document.createElement('script')
+          script.src = 'https://tg-3d-room.netlify.app/main.js'
+          script.async = true
+          script.onload = () => {
+            console.log('3D Room script loaded successfully')
+          }
+          script.onerror = (error) => {
+            console.error('Error loading 3D Room script:', error)
+          }
+          document.body.appendChild(script)
+        },
+      },
     ],
   })
 })
