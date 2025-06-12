@@ -6,7 +6,10 @@ import barba from '@barba/core'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import { CaseStudySlider } from './Animations/CaseStudySlider'
+import {
+  FreddiesCaseStudySlider,
+  ButtermilkCaseStudySlider,
+} from './Animations/CaseStudySlider'
 import { CollageAnimation } from './Animations/CollageAnimation'
 import { CTALink } from './Animations/CTALink'
 import { fadeInImage } from './Animations/FadeInImage'
@@ -197,7 +200,14 @@ siteLoader().then(() => {
         namespace: 'freddys',
         beforeEnter(data) {
           LazyLoadVideo(data.next.container)
-          CaseStudySlider()
+          FreddiesCaseStudySlider()
+        },
+      },
+      {
+        namespace: 'buttermilk',
+        beforeEnter(data) {
+          LazyLoadVideo(data.next.container)
+          ButtermilkCaseStudySlider()
         },
       },
       {
