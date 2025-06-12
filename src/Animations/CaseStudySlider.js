@@ -21,19 +21,19 @@ export const CaseStudySlider = () => {
     slides: () => [
       {
         size: 0.5,
-        spacing: 0,
+        spacing: 0.01,
       },
       {
         size: 1,
-        spacing: 0,
+        spacing: 0.01,
       },
       {
         size: 0.5,
-        spacing: 0,
+        spacing: 0.01,
       },
       {
         size: 1,
-        spacing: 0,
+        spacing: 0.01,
       },
     ],
   })
