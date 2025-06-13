@@ -77,7 +77,7 @@ const pageExit = (container) => {
     ease: 'power2.inOut',
   })
   gsap.to(
-    '[animation="scale-down"], .background-image, .projecthero-image, video, img',
+    '[animation="scale-down"], .background-image, .projecthero-image, video, img, .team-member_name, .team-member_title',
     {
       opacity: 0,
       filter: 'blur(50px)',

@@ -3,7 +3,9 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 
 export const fadeInImage = (container) => {
   gsap.registerPlugin(ScrollTrigger)
-  const image = container.querySelectorAll('.storydetail-image')
+  const image = container.querySelectorAll(
+    '.storydetail-image, .team-member_image'
+  )
   image.forEach((element) => {
     const tl = gsap.timeline({ paused: true })
     ScrollTrigger.create({
