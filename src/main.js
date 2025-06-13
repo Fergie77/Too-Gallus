@@ -204,6 +204,17 @@ siteLoader().then(() => {
         },
       },
       {
+        namespace: 'chanel',
+        beforeEnter(data) {
+          LazyLoadVideo(data.next.container)
+          const video = data.next.container.querySelector('video') // or use a more specific selector
+
+          if (video) {
+            video.muted = false
+          }
+        },
+      },
+      {
         namespace: 'buttermilk',
         beforeEnter(data) {
           LazyLoadVideo(data.next.container)
