@@ -207,13 +207,13 @@ siteLoader().then(() => {
         namespace: 'chanel',
         beforeEnter(data) {
           LazyLoadVideo(data.next.container)
-          const video = data.next.container.querySelector('video') // or use a more specific selector
+          // const video = data.next.container.querySelector('video') // or use a more specific selector
 
-          setTimeout(() => {
-            if (video) {
-              video.muted = false
-            }
-          }, 1000)
+          // setTimeout(() => {
+          //   if (video) {
+          //     video.muted = false
+          //   }
+          // }, 2000)
         },
       },
       {
