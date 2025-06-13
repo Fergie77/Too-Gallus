@@ -209,9 +209,11 @@ siteLoader().then(() => {
           LazyLoadVideo(data.next.container)
           const video = data.next.container.querySelector('video') // or use a more specific selector
 
-          if (video) {
-            video.muted = false
-          }
+          setTimeout(() => {
+            if (video) {
+              video.muted = false
+            }
+          }, 1000)
         },
       },
       {
