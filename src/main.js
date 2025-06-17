@@ -6,6 +6,7 @@ import barba from '@barba/core'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { buttermilkImages } from './Animations/ButtermilkImages'
 import {
   FreddiesCaseStudySlider,
   ButtermilkCaseStudySlider,
@@ -221,6 +222,7 @@ siteLoader().then(() => {
         beforeEnter(data) {
           LazyLoadVideo(data.next.container)
           ButtermilkCaseStudySlider()
+          buttermilkImages(data.next.container)
         },
       },
       {
