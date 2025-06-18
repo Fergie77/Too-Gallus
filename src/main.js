@@ -1,3 +1,8 @@
+// Patch for Brave browser: prevent ga.update error if ga is stubbed
+if (window.ga && typeof window.ga.update !== 'function') {
+  window.ga.update = function () {}
+}
+
 // Local imports first
 import { LazyLoadVideo } from './Features/LazyLoadVideo'
 
