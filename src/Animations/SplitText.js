@@ -30,7 +30,7 @@ export const splitText = (container) => {
       duration: 1,
       ease: 'power2.inOut',
       onComplete: () => {
-        splittedText.revert()
+        //splittedText.revert()
       },
     })
   })

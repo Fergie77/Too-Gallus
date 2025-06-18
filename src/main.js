@@ -321,7 +321,9 @@ barba.hooks.enter(() => {
 
 barba.hooks.afterEnter((data) => {
   CTALink(data.next.container)
-  FooterLink()
+  setTimeout(() => {
+    FooterLink()
+  }, 2000)
   footerScroller(data.next.container)
   navLinkColourEnter(data)
 })
