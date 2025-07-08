@@ -308,6 +308,7 @@ siteLoader().then(() => {
             console.error('Error loading 3D Room script:', error)
           }
           document.body.appendChild(script)
+          LazyLoadVideo(data.next.container)
         },
       },
     ],
