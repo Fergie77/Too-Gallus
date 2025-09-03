@@ -297,6 +297,12 @@ siteLoader().then(() => {
         },
       },
       {
+        namespace: 'archive',
+        beforeEnter(data) {
+          NavMenu()
+        },
+      },
+      {
         namespace: 'royal-enfield',
         beforeEnter(data) {
           const script = document.createElement('script')

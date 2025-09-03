@@ -1,3 +1,7 @@
 [build]
   functions = "Netlify/Functions"
   publish = "dist"
+[[headers]]
+  for = "/*" # you can configure the correct paths here
+  [headers.values]
+    access-control-allow-origin = "*" 
