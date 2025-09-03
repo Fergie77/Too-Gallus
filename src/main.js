@@ -273,6 +273,7 @@ siteLoader().then(() => {
           NavMenu()
           SplineReveal()
           ArchivedActsHeadings()
+          renderUpcomingEventsForPromoter('69759')
         },
       },
       {
@@ -284,6 +285,7 @@ siteLoader().then(() => {
             '.mc_featured-blogs_layout',
             '.mc_blog_recent-posts_item'
           )
+          NavMenu()
           renderUpcomingEventsForPromoter('69759')
           renderPastEventsForPromoter('69759').then(() => {
             ArticleSlider(
@@ -297,7 +299,6 @@ siteLoader().then(() => {
       {
         namespace: 'royal-enfield',
         beforeEnter(data) {
-          console.log(data.next.namespace)
           const script = document.createElement('script')
           script.src = 'https://tg-3d-room.netlify.app/main.js'
           script.async = true

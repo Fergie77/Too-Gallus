@@ -1,4 +1,5 @@
 import gsap from 'gsap'
+import { addPseudoButtonHover } from '../Animations/MagicCity/MCButtonHover'
 
 export async function fetchRAEvents(element, id) {
   try {
@@ -168,6 +169,7 @@ export async function renderPastEventsForPromoter(promoterId) {
     }
 
     eventLoaded(clone)
+
     // Append to container
     container.appendChild(clone)
   })
@@ -225,6 +227,8 @@ export async function renderUpcomingEventsForPromoter(promoterId) {
 
     // Append to container
     container.appendChild(clone)
+    addPseudoButtonHover(clone)
+    console.log(clone)
   })
   // Optionally hide the template
   template.style.display = 'none'
