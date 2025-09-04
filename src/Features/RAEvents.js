@@ -114,7 +114,7 @@ export async function fetchPromoterEvents(promoterId, type) {
       )
     }
     const events = await res.json()
-
+    console.log(events)
     return events
   } catch (err) {
     console.error('Failed to fetch promoter events:', err)
@@ -210,6 +210,7 @@ export async function renderUpcomingEventsForPromoter(promoterId) {
           month: 'long',
         })
         .replace(/\s/, ', ')
+
     const location = clone.querySelector('[mc-event-element="location"]')
     if (location) location.textContent = event.venue?.name || ''
     const attending = clone.querySelector('[mc-event-element="attending"]')
@@ -228,7 +229,6 @@ export async function renderUpcomingEventsForPromoter(promoterId) {
     // Append to container
     container.appendChild(clone)
     addPseudoButtonHover(clone)
-    console.log(clone)
   })
   // Optionally hide the template
   template.style.display = 'none'

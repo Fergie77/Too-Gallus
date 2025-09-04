@@ -104,6 +104,7 @@ exports.handler = async function (event) {
             title
             attending
             date
+            time
             contentUrl
             images { filename }
             venue { name }
@@ -121,6 +122,7 @@ exports.handler = async function (event) {
           title
           attending
           date
+          time
           contentUrl
           images { filename }
           venue { name }
@@ -139,6 +141,7 @@ exports.handler = async function (event) {
               title
               attending
               date
+              time
               contentUrl
               images { filename }
               venue { name }
