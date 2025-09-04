@@ -107,13 +107,6 @@ exports.handler = async function (event) {
             time
             startTime
             endTime
-            setTimes {
-              startTime
-              endTime
-              artist {
-                name
-              }
-            }
             contentUrl
             images { filename }
             venue { name }
