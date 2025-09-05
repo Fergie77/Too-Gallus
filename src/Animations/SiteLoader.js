@@ -46,8 +46,8 @@ export const siteLoader = () => {
     const background = document.querySelector('.loader_background')
     const mainAxis = blocks[0].parentElement
     const nav = document.querySelector('.loader-transition-stage_wrapper')
-    const navHeight = document.querySelector('.nav_menu').offsetHeight
-    const navWidth = document.querySelector('.nav_menu').offsetWidth
+    const navHeight = document.querySelector('.nav_menu')?.offsetHeight
+    const navWidth = document.querySelector('.nav_menu')?.offsetWidth
 
     nav.style.height = `${navHeight}px`
     nav.style.width = `${navWidth}px`
