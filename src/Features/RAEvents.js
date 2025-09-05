@@ -114,7 +114,6 @@ export async function fetchPromoterEvents(promoterId, type) {
       )
     }
     const events = await res.json()
-    console.log(events)
     return events
   } catch (err) {
     console.error('Failed to fetch promoter events:', err)
