@@ -86,7 +86,7 @@ const pageExit = (container) => {
     '[animation="scale-down"], .background-image, .projecthero-image, video, img, .team-member_name, .team-member_title',
     {
       opacity: 0,
-      filter: 'blur(50px)',
+      // filter: 'blur(50px)',
       duration: 1,
       scale: 0.8,
       ease: 'power2.inOut',
@@ -94,7 +94,7 @@ const pageExit = (container) => {
   )
   gsap.to(container.querySelectorAll('[animation="blur"]'), {
     opacity: 0,
-    filter: 'blur(50px)',
+    //filter: 'blur(50px)',
     duration: 1.5,
     scale: 1.2,
     ease: 'power2.inOut',
@@ -111,19 +111,19 @@ const pageEnter = (container) => {
   })
   gsap.from('.section_footer, [animation="scale"]', {
     opacity: 0,
-    filter: 'blur(20px)',
+    //filter: 'blur(20px)',
     duration: 1,
     scale: 0.8,
     ease: 'power2.inOut',
   })
   gsap.from('img', {
-    filter: 'blur(50px)',
+    //filter: 'blur(50px)',
     duration: 1,
     ease: 'power2.inOut',
   })
   gsap.from(container.querySelectorAll('[animation="blur"]'), {
     opacity: 0,
-    filter: 'blur(20px)',
+    //filter: 'blur(20px)',
     duration: 1,
     scale: 1.2,
     ease: 'power2.inOut',
