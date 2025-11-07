@@ -69,12 +69,6 @@ function delay(n) {
 
 NavGradientOverlay()
 
-const mobileMediaQuery = window.matchMedia('(max-width: 768px)')
-let isMobile = mobileMediaQuery.matches
-mobileMediaQuery.addEventListener('change', (event) => {
-  isMobile = event.matches
-})
-
 const pageExit = (container) => {
   gsap.to(container.querySelectorAll('img'), {
     opacity: 0,
@@ -90,37 +84,22 @@ const pageExit = (container) => {
   })
   gsap.to(
     '[animation="scale-down"], .background-image, .projecthero-image, video, img, .team-member_name, .team-member_title',
-    isMobile
-      ? {
-          opacity: 0,
-          duration: 1,
-          ease: 'power2.inOut',
-        }
-      : {
-          opacity: 0,
-          filter: 'blur(50px)',
-          duration: 1,
-          scale: 0.8,
-          ease: 'power2.inOut',
-        }
+    {
+      opacity: 0,
+      filter: 'blur(50px)',
+      duration: 1,
+      scale: 0.8,
+      ease: 'power2.inOut',
+    }
   )
-  gsap.to(
-    container.querySelectorAll('[animation="blur"]'),
-    isMobile
-      ? {
-          opacity: 0,
-          duration: 1.5,
-          ease: 'power2.inOut',
-        }
-      : {
-          opacity: 0,
-          filter: 'blur(50px)',
-          duration: 1.5,
-          scale: 1.2,
-          ease: 'power2.inOut',
-          y: -100,
-        }
-  )
+  gsap.to(container.querySelectorAll('[animation="blur"]'), {
+    opacity: 0,
+    filter: 'blur(50px)',
+    duration: 1.5,
+    scale: 1.2,
+    ease: 'power2.inOut',
+    y: -100,
+  })
 }
 
 const pageEnter = (container) => {
@@ -130,52 +109,25 @@ const pageEnter = (container) => {
     scale: 0.8,
     ease: 'power2.inOut',
   })
-  gsap.from(
-    '.section_footer, [animation="scale"]',
-    isMobile
-      ? {
-          opacity: 0,
-          duration: 1,
-          ease: 'power2.inOut',
-        }
-      : {
-          opacity: 0,
-          filter: 'blur(20px)',
-          duration: 1,
-          scale: 0.8,
-          ease: 'power2.inOut',
-        }
-  )
-  gsap.from(
-    'img',
-    isMobile
-      ? {
-          opacity: 0,
-          duration: 1,
-          ease: 'power2.inOut',
-        }
-      : {
-          filter: 'blur(50px)',
-          duration: 1,
-          ease: 'power2.inOut',
-        }
-  )
-  gsap.from(
-    container.querySelectorAll('[animation="blur"]'),
-    isMobile
-      ? {
-          opacity: 0,
-          duration: 1,
-          ease: 'power2.inOut',
-        }
-      : {
-          opacity: 0,
-          filter: 'blur(20px)',
-          duration: 1,
-          scale: 1.2,
-          ease: 'power2.inOut',
-        }
-  )
+  gsap.from('.section_footer, [animation="scale"]', {
+    opacity: 0,
+    filter: 'blur(20px)',
+    duration: 1,
+    scale: 0.8,
+    ease: 'power2.inOut',
+  })
+  gsap.from('img', {
+    filter: 'blur(50px)',
+    duration: 1,
+    ease: 'power2.inOut',
+  })
+  gsap.from(container.querySelectorAll('[animation="blur"]'), {
+    opacity: 0,
+    filter: 'blur(20px)',
+    duration: 1,
+    scale: 1.2,
+    ease: 'power2.inOut',
+  })
 }
 
 siteLoader().then(() => {
