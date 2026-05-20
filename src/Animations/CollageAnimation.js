@@ -102,8 +102,18 @@ export const CollageAnimation = (container) => {
     return { image, newIndex, xOffset, yOffset }
   })
 
+  // Scale the inner media, NOT the wrapper. The wrapper is being x/y/z'd
+  // by the next tween — running a parallel scale on the same element causes
+  // GSAP to recompose the transform matrix each frame, which visibly shifts
+  // position and z-order. Scoping scale to the child <img>/<video> keeps
+  // the two transforms on separate elements (matches main's pageEnter
+  // selector, which targeted img/video directly).
+  const innerMedia = collage.querySelectorAll(
+    '.collage-animation_image-wrapper img, .collage-animation_image-wrapper video'
+  )
+
   openingTl.from(
-    images,
+    innerMedia,
     {
       scale: 0.8,
       duration: 1,
