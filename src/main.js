@@ -80,10 +80,7 @@ const PAGE_INITS = {
     heroLogoSlide(s)
     splitText(s)
     fadeInProjectBlock(s)
-    onPageReady(() => {
-      ScrollingList(s)
-      LazyLoadVideo(s)
-    })
+    onPageReady(() => ScrollingList(s))
   },
   studio: (s) => {
     slideUp(s)
@@ -97,22 +94,15 @@ const PAGE_INITS = {
   },
   projects: (s) => {
     projectSliderAnimation(s)
-    onPageReady(() => LazyLoadVideo(s))
   },
-  project: (s) => {
-    onPageReady(() => LazyLoadVideo(s))
-  },
-  freddys: (s) => {
+  project: () => {},
+  freddys: () => {
     FreddiesCaseStudySlider()
-    onPageReady(() => LazyLoadVideo(s))
   },
-  chanel: (s) => {
-    onPageReady(() => LazyLoadVideo(s))
-  },
+  chanel: () => {},
   buttermilk: (s) => {
     ButtermilkCaseStudySlider()
     buttermilkImages(s)
-    onPageReady(() => LazyLoadVideo(s))
   },
   'animation-test': () => {
     OverlappingImages()
@@ -120,10 +110,9 @@ const PAGE_INITS = {
   'animation-test-2': () => {
     OverlappingImagesSmooth()
   },
-  'blue-star': (s) => {
+  'blue-star': () => {
     OverlappingImages()
     OverlappingImagesSmooth()
-    onPageReady(() => LazyLoadVideo(s))
   },
   'scrolling-list-test': (s) => {
     ScrollingListTest(s)
@@ -175,6 +164,11 @@ function initPage() {
   setTimeout(() => FooterLink(), 2000)
 
   PAGE_INITS[ns]?.(scope)
+
+  // Lazy videos exist on many pages and don't depend on a specific namespace.
+  // Run unconditionally so any page (including CMS templates without a
+  // dedicated PAGE_INITS entry, e.g. /project/byoma → "byoma") gets them.
+  onPageReady(() => LazyLoadVideo(scope))
 
   requestAnimationFrame(() => ScrollTrigger.refresh())
 }
