@@ -102,19 +102,33 @@ export const CollageAnimation = (container) => {
     return { image, newIndex, xOffset, yOffset }
   })
 
-  openingTl.to(images, {
-    z: (index) => {
-      return offsets[index].newIndex * 40
+  openingTl.from(
+    images,
+    {
+      scale: 0.8,
+      duration: 1,
+      ease: 'power2.inOut',
     },
-    x: (index) => {
-      return offsets[index].xOffset
+    '0'
+  )
+
+  openingTl.to(
+    images,
+    {
+      z: (index) => {
+        return offsets[index].newIndex * 40
+      },
+      x: (index) => {
+        return offsets[index].xOffset
+      },
+      y: (index) => {
+        return offsets[index].yOffset
+      },
+      duration: 4,
+      ease: hardExpo,
     },
-    y: (index) => {
-      return offsets[index].yOffset
-    },
-    duration: 4,
-    ease: hardExpo,
-  })
+    '<'
+  )
 
   closingTl.to(images, {
     z: (index) => {
