@@ -59,6 +59,23 @@ function onPageReady(callback) {
   }
 }
 
+// Capture the incoming view transition (if any) as early as possible so
+// auto-playing animations can wait for the crossfade to finish. Without
+// this, GSAP timelines run during the VT snapshot window and the user
+// sees them jump to mid-progress when the VT completes.
+let __vtFinished = Promise.resolve()
+if ('onpagereveal' in window) {
+  window.addEventListener('pagereveal', (e) => {
+    if (e.viewTransition) {
+      __vtFinished = e.viewTransition.finished.catch(() => {})
+    }
+  })
+}
+
+function afterPageTransition(callback) {
+  __vtFinished.then(callback)
+}
+
 const PAGE_INITS = {
   home: (s) => {
     projectSliderAnimation(s)
@@ -75,8 +92,8 @@ const PAGE_INITS = {
   studio: (s) => {
     slideUp(s)
     fadeInImage(s)
-    CollageAnimation(s)
     splitText(s)
+    afterPageTransition(() => CollageAnimation(s))
     setTimeout(() => ScrollTrigger.refresh(), 500)
   },
   contact: (s) => {
