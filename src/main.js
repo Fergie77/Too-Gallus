@@ -59,21 +59,17 @@ function onPageReady(callback) {
   }
 }
 
-// Capture the incoming view transition (if any) as early as possible so
-// auto-playing animations can wait for the crossfade to finish. Without
-// this, GSAP timelines run during the VT snapshot window and the user
-// sees them jump to mid-progress when the VT completes.
-let __vtFinished = Promise.resolve()
-if ('onpagereveal' in window) {
-  window.addEventListener('pagereveal', (e) => {
-    if (e.viewTransition) {
-      __vtFinished = e.viewTransition.finished.catch(() => {})
-    }
-  })
-}
-
+// The pagereveal event is captured in Webflow head custom code (inline,
+// synchronous, attached before this module loads async). The head code
+// exposes window.__tgVTReady — a promise that resolves after the VT
+// finishes, or immediately if there's no VT.
 function afterPageTransition(callback) {
-  __vtFinished.then(callback)
+  const ready = window.__tgVTReady
+  if (ready && typeof ready.then === 'function') {
+    ready.then(callback)
+  } else {
+    callback()
+  }
 }
 
 const PAGE_INITS = {
