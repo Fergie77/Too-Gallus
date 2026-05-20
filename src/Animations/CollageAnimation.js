@@ -31,11 +31,15 @@ export const CollageAnimation = (container) => {
     '0'
   )
 
-  mainTl.to(collage, {
-    rotateY: 200,
-    duration: 4,
-    ease: hardExpo,
-  }, '<')
+  mainTl.to(
+    collage,
+    {
+      rotateY: 200,
+      duration: 4,
+      ease: hardExpo,
+    },
+    '<1'
+  )
 
   mainTl.to(
     collage,
