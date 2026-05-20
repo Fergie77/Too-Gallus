@@ -38,7 +38,7 @@ export const CollageAnimation = (container) => {
       duration: 4,
       ease: hardExpo,
     },
-    '<1'
+    '<'
   )
 
   mainTl.to(
