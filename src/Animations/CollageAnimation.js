@@ -162,4 +162,41 @@ export const CollageAnimation = (container) => {
 
   mainTl.add(openingTl, '0')
   mainTl.add(closingTl, '-=1.8')
+
+  // ───── DIAGNOSTIC LOGGING ─────
+  // Append ?debug-collage to the URL to enable. Logs each image's bounding
+  // rect, opacity, and GSAP-tracked transform at key timeline checkpoints
+  // so we can see exactly when/how positions shift.
+  if (window.location.search.includes('debug-collage')) {
+    console.log(
+      '[collage] images count:',
+      images.length,
+      '| offsets array length:',
+      offsetX.length,
+      images.length > offsetX.length
+        ? '⚠ MORE IMAGES THAN OFFSETS — extras get undefined positions'
+        : '✓'
+    )
+    console.log('[collage] innerMedia count:', innerMedia.length)
+
+    const snap = (label) => {
+      const rows = [...images].map((img, i) => ({
+        i,
+        x: Number(gsap.getProperty(img, 'x')).toFixed(0),
+        y: Number(gsap.getProperty(img, 'y')).toFixed(0),
+        z: Number(gsap.getProperty(img, 'z')).toFixed(0),
+        scale: Number(gsap.getProperty(img, 'scale')).toFixed(2),
+        opacity: Number(gsap.getProperty(img, 'opacity')).toFixed(2),
+        rectL: Math.round(img.getBoundingClientRect().left),
+        rectT: Math.round(img.getBoundingClientRect().top),
+      }))
+      console.log(`[collage] ${label}`)
+      console.table(rows)
+    }
+
+    const checkpoints = [0, 1, 2, 2.3, 2.5, 2.7, 3, 3.5, 4, 4.5]
+    checkpoints.forEach((t) => {
+      mainTl.call(() => snap(`t=${t.toFixed(1)}`), null, t)
+    })
+  }
 }
