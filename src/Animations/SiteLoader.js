@@ -148,6 +148,14 @@ export const siteLoader = () => {
                   if (wrapper) {
                     wrapper.style.display = 'none'
                   }
+                  // Clear the inline white background so the CSS default
+                  // (transparent) takes over. Prevents any subsequent
+                  // re-paint or VT snapshot from picking up white.
+                  document
+                    .querySelectorAll('.loader_block_background')
+                    .forEach((el) =>
+                      el.style.removeProperty('background-color')
+                    )
                 },
               })
             },
