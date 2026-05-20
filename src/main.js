@@ -51,6 +51,14 @@ if (history.scrollRestoration) {
   history.scrollRestoration = 'manual'
 }
 
+function onPageReady(callback) {
+  if (document.readyState === 'complete') {
+    requestAnimationFrame(callback)
+  } else {
+    window.addEventListener('load', callback, { once: true })
+  }
+}
+
 const PAGE_INITS = {
   home: (s) => {
     projectSliderAnimation(s)
@@ -59,7 +67,7 @@ const PAGE_INITS = {
     heroLogoSlide(s)
     splitText(s)
     fadeInProjectBlock(s)
-    requestAnimationFrame(() => {
+    onPageReady(() => {
       ScrollingList(s)
       LazyLoadVideo(s)
     })
@@ -76,22 +84,22 @@ const PAGE_INITS = {
   },
   projects: (s) => {
     projectSliderAnimation(s)
-    LazyLoadVideo(s)
+    onPageReady(() => LazyLoadVideo(s))
   },
   project: (s) => {
-    LazyLoadVideo(s)
+    onPageReady(() => LazyLoadVideo(s))
   },
   freddys: (s) => {
-    LazyLoadVideo(s)
     FreddiesCaseStudySlider()
+    onPageReady(() => LazyLoadVideo(s))
   },
   chanel: (s) => {
-    LazyLoadVideo(s)
+    onPageReady(() => LazyLoadVideo(s))
   },
   buttermilk: (s) => {
-    LazyLoadVideo(s)
     ButtermilkCaseStudySlider()
     buttermilkImages(s)
+    onPageReady(() => LazyLoadVideo(s))
   },
   'animation-test': () => {
     OverlappingImages()
@@ -102,7 +110,7 @@ const PAGE_INITS = {
   'blue-star': (s) => {
     OverlappingImages()
     OverlappingImagesSmooth()
-    LazyLoadVideo(s)
+    onPageReady(() => LazyLoadVideo(s))
   },
   'scrolling-list-test': (s) => {
     ScrollingListTest(s)
