@@ -3,13 +3,13 @@ import CustomEase from 'gsap/CustomEase'
 
 export const CollageAnimation = (container) => {
   const collage = container.querySelector('.collage-animation_layout')
+  if (!collage) return
+
   gsap.registerPlugin(CustomEase)
   const hardExpo = CustomEase.create(
     'custom',
     'M0,0 C0.01,0.074 0.03,0.414 0.054,0.502 0.082,0.604 0.154,0.742 0.2,0.8 0.252,0.865 0.374,0.981 1,0.981 '
   )
-  //const hardExpo = 'circ.inOut'
-  if (!collage) return
 
   const isMobile = window.matchMedia('(max-width: 479px)').matches
 
@@ -21,11 +21,21 @@ export const CollageAnimation = (container) => {
     ease: 'none',
   })
 
+  mainTl.to(
+    collage,
+    {
+      opacity: 1,
+      duration: 2,
+      ease: 'power2.out',
+    },
+    '0'
+  )
+
   mainTl.to(collage, {
     rotateY: 200,
     duration: 4,
     ease: hardExpo,
-  })
+  }, '<')
 
   mainTl.to(
     collage,
