@@ -21,25 +21,11 @@ export const CollageAnimation = (container) => {
     ease: 'none',
   })
 
-  mainTl.to(
-    collage,
-    {
-      opacity: 1,
-      duration: 2,
-      ease: 'power2.out',
-    },
-    '0'
-  )
-
-  mainTl.to(
-    collage,
-    {
-      rotateY: 200,
-      duration: 4,
-      ease: hardExpo,
-    },
-    '<'
-  )
+  mainTl.to(collage, {
+    rotateY: 200,
+    duration: 4,
+    ease: hardExpo,
+  })
 
   mainTl.to(
     collage,
@@ -116,6 +102,19 @@ export const CollageAnimation = (container) => {
     innerMedia,
     {
       scale: 0.8,
+      duration: 1,
+      ease: 'power2.inOut',
+    },
+    '0'
+  )
+
+  // Opacity uses to() because CSS sets the inner img/video to opacity:0
+  // as the initial state (so the VT snapshot has them invisible). from()
+  // would record the current state (0) as the end and animate 0->0 — no-op.
+  openingTl.to(
+    innerMedia,
+    {
+      opacity: 1,
       duration: 1,
       ease: 'power2.inOut',
     },
