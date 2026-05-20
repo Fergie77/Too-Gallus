@@ -26,6 +26,17 @@ export const siteLoader = () => {
     // Store today's date as the last visit
     localStorage.setItem('lastVisit', today)
 
+    // The .loader_block_background elements default to transparent in CSS
+    // so they don't flash white during page transitions on subsequent
+    // visits. Only the first-visit-of-the-day path (this branch) needs
+    // them visible — restore the white inline so the loader animation
+    // shows as designed. !important is needed to beat the CSS rule.
+    document
+      .querySelectorAll('.loader_block_background')
+      .forEach((el) =>
+        el.style.setProperty('background-color', '#ffffff', 'important')
+      )
+
     const countUp = new CountUp('initial-odometer', 100, {
       startVal: 0,
       duration: 3, // Duration in seconds
