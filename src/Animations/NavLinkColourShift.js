@@ -1,12 +1,10 @@
 import gsap from 'gsap'
 import SplitType from 'split-type'
 
-export const initNavLinks = () => {
+export const initNavLinks = (currentNamespace) => {
   const nav = document.querySelector('.nav_container')
   const navLinks = document.querySelectorAll('.navbar_link')
   if (!navLinks.length) return
-
-  const currentNamespace = document.body.dataset.barbaNamespace
 
   navLinks.forEach((link) => {
     const split = SplitType.create(link)

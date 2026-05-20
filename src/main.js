@@ -151,12 +151,12 @@ const PAGE_INITS = {
 }
 
 function initPage() {
-  const scope =
-    document.querySelector('[data-barba="container"]') || document.body
-  const ns = document.body.dataset.barbaNamespace
+  const container = document.querySelector('[data-barba="container"]')
+  const scope = container || document.body
+  const ns = scope.dataset.barbaNamespace
 
   NavGradientOverlay()
-  initNavLinks()
+  initNavLinks(ns)
   CTALink(scope)
   footerScroller(scope)
   setTimeout(() => FooterLink(), 2000)
