@@ -28,14 +28,10 @@ export const siteLoader = () => {
 
     // The .loader_block_background elements default to transparent in CSS
     // so they don't flash white during page transitions on subsequent
-    // visits. Only the first-visit-of-the-day path (this branch) needs
-    // them visible — restore the white inline so the loader animation
-    // shows as designed. !important is needed to beat the CSS rule.
-    document
-      .querySelectorAll('.loader_block_background')
-      .forEach((el) =>
-        el.style.setProperty('background-color', '#ffffff', 'important')
-      )
+    // visits. Add a class on <html> so the higher-specificity CSS rule
+    // (html.loader-playing .loader_block_background) makes them white
+    // for this first-visit-of-the-day animation only.
+    document.documentElement.classList.add('loader-playing')
 
     const countUp = new CountUp('initial-odometer', 100, {
       startVal: 0,
@@ -148,14 +144,11 @@ export const siteLoader = () => {
                   if (wrapper) {
                     wrapper.style.display = 'none'
                   }
-                  // Clear the inline white background so the CSS default
-                  // (transparent) takes over. Prevents any subsequent
-                  // re-paint or VT snapshot from picking up white.
-                  document
-                    .querySelectorAll('.loader_block_background')
-                    .forEach((el) =>
-                      el.style.removeProperty('background-color')
-                    )
+                  // Remove the class so the .loader_block_background CSS
+                  // default (transparent) takes over. Prevents any
+                  // subsequent re-paint or VT snapshot from picking up
+                  // white.
+                  document.documentElement.classList.remove('loader-playing')
                 },
               })
             },
