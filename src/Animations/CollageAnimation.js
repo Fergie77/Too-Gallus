@@ -180,18 +180,21 @@ export const CollageAnimation = (container) => {
     console.log('[collage] innerMedia count:', innerMedia.length)
 
     const snap = (label) => {
-      const rows = [...images].map((img, i) => ({
-        i,
-        x: Number(gsap.getProperty(img, 'x')).toFixed(0),
-        y: Number(gsap.getProperty(img, 'y')).toFixed(0),
-        z: Number(gsap.getProperty(img, 'z')).toFixed(0),
-        scale: Number(gsap.getProperty(img, 'scale')).toFixed(2),
-        opacity: Number(gsap.getProperty(img, 'opacity')).toFixed(2),
-        rectL: Math.round(img.getBoundingClientRect().left),
-        rectT: Math.round(img.getBoundingClientRect().top),
-      }))
-      console.log(`[collage] ${label}`)
-      console.table(rows)
+      console.log(`[collage] ─── ${label} ───`)
+      images.forEach((img, i) => {
+        const x = Number(gsap.getProperty(img, 'x')).toFixed(0)
+        const y = Number(gsap.getProperty(img, 'y')).toFixed(0)
+        const z = Number(gsap.getProperty(img, 'z')).toFixed(0)
+        const sc = Number(gsap.getProperty(img, 'scale')).toFixed(2)
+        const op = Number(gsap.getProperty(img, 'opacity')).toFixed(2)
+        const r = img.getBoundingClientRect()
+        const innerScale = innerMedia[i]
+          ? Number(gsap.getProperty(innerMedia[i], 'scale')).toFixed(2)
+          : 'n/a'
+        console.log(
+          `  i=${i} x=${x} y=${y} z=${z} scale=${sc} innerScale=${innerScale} op=${op} rect=(${Math.round(r.left)},${Math.round(r.top)})`
+        )
+      })
     }
 
     const checkpoints = [0, 1, 2, 2.3, 2.5, 2.7, 3, 3.5, 4, 4.5]
