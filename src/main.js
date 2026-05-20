@@ -183,6 +183,18 @@ if (document.readyState === 'loading') {
   boot()
 }
 
+// bfcache restore: do not re-run initPage. The browser preserves all JS
+// state on restore (ScrollTriggers, KeenSliders, IntersectionObservers,
+// GSAP timelines). Re-running init creates duplicate listeners and breaks
+// the gsap.from() pattern in fadeInProjectBlock — re-recording the current
+// state as the end captures the from-state (scale 0.8, opacity 0) as the
+// new end, leaving project cards stuck invisible.
+//
+// We do resume paused autoplay videos though, since bfcache pauses them
+// on some browsers and the autoplay attribute doesn't re-trigger.
 window.addEventListener('pageshow', (e) => {
-  if (e.persisted) initPage()
+  if (!e.persisted) return
+  document.querySelectorAll('video').forEach((v) => {
+    if (v.paused && v.autoplay && v.src) v.play().catch(() => {})
+  })
 })
