@@ -1,93 +1,57 @@
 import gsap from 'gsap'
 import SplitType from 'split-type'
 
-let splittedTextArray = []
-let isTransitioning = false
-
-export const registerNavLinkObservers = () => {
-  const navLinks = document.querySelectorAll('.navbar_link')
+export const initNavLinks = (currentNamespace) => {
   const nav = document.querySelector('.nav_container')
+  const navLinks = document.querySelectorAll('.navbar_link')
+  if (!navLinks.length) return
 
-  navLinks.forEach((element) => {
-    const splittedText = SplitType.create(element)
-    splittedTextArray.push(splittedText)
+  navLinks.forEach((link) => {
+    const split = SplitType.create(link)
 
-    const linkUnderline = document.createElement('div')
-    linkUnderline.classList.add('link_underline')
-    element.appendChild(linkUnderline)
+    const underline = document.createElement('div')
+    underline.classList.add('link_underline')
+    link.appendChild(underline)
 
-    element.addEventListener('mouseenter', () => {
-      linkUnderline.classList.add('is-hovered')
+    const linkNamespace = link.getAttribute('namespace')
+    const isCurrent = linkNamespace === currentNamespace
+
+    if (isCurrent) {
+      gsap.set(split.chars, { color: '#ffffff' })
+      link.classList.add('skew', 'w--current')
+    } else {
+      gsap.set(split.chars, { color: '#a1a4a7' })
+      link.classList.remove('skew', 'w--current')
+    }
+
+    link.addEventListener('mouseenter', () => {
+      underline.classList.add('is-hovered')
     })
 
-    element.addEventListener('mouseleave', () => {
-      linkUnderline.classList.remove('is-hovered')
+    link.addEventListener('mouseleave', () => {
+      underline.classList.remove('is-hovered')
     })
 
-    element.addEventListener('click', () => {
-      linkUnderline.classList.remove('is-hovered')
+    link.addEventListener('click', () => {
+      underline.classList.remove('is-hovered')
     })
-    element.addEventListener('mousedown', () => {
-      if (!isTransitioning) {
+
+    if (nav) {
+      link.addEventListener('mousedown', () => {
         gsap.to(nav, {
           scale: 0.95,
           duration: 0.2,
           ease: 'power2.inOut',
         })
-      }
-    })
+      })
 
-    element.addEventListener('mouseup', () => {
-      if (!isTransitioning) {
+      link.addEventListener('mouseup', () => {
         gsap.to(nav, {
           scale: 1,
           duration: 0.2,
           ease: 'power2.inOut',
         })
-      }
-    })
-  })
-}
-
-export const navLinkColourLeave = (data) => {
-  isTransitioning = true
-  const previousPageSplittedText = Array.from(splittedTextArray).find(
-    (item) =>
-      item.elements[0]?.getAttribute('namespace') == data.current.namespace
-  )
-
-  gsap.to(previousPageSplittedText.chars, {
-    color: '#a1a4a7', // Change the color or any other property
-    stagger: 0.1,
-    duration: 0.5,
-    ease: 'power2.inOut',
-    onStart: () => {
-      previousPageSplittedText.elements[0].classList.remove('skew')
-    },
-    onComplete: () => {
-      previousPageSplittedText.elements[0].classList.remove('w--current')
-    },
-  })
-}
-
-export const navLinkColourEnter = (data) => {
-  let nextPageSplittedText = []
-
-  nextPageSplittedText = Array.from(splittedTextArray).find(
-    (item) => item.elements[0]?.getAttribute('namespace') == data.next.namespace
-  )
-
-  gsap.to(nextPageSplittedText.chars, {
-    color: '#ffffff', // Change the color or any other property
-    stagger: 0.1,
-    duration: 0.5,
-    ease: 'power2.inOut',
-    onStart: () => {
-      nextPageSplittedText.elements[0].classList.add('skew')
-      isTransitioning = false
-    },
-    onComplete: () => {
-      nextPageSplittedText.elements[0].classList.add('w--current')
-    },
+      })
+    }
   })
 }
