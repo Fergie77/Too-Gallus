@@ -174,7 +174,14 @@ function initPage() {
 }
 
 function boot() {
-  siteLoader().then(initPage)
+  // Never let a siteLoader failure block initPage — a page without the
+  // loader DOM, or a GSAP/Flip error inside the animation, must not stop
+  // navigation, lazy videos, or ScrollTrigger from initialising.
+  siteLoader()
+    .catch((err) => {
+      console.error('[boot] siteLoader failed, continuing to initPage', err)
+    })
+    .then(initPage)
 }
 
 if (document.readyState === 'loading') {

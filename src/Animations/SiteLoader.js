@@ -8,13 +8,22 @@ export const siteLoader = () => {
     const lastVisit = localStorage.getItem('lastVisit')
     const today = new Date().toDateString()
     const wrapper = document.querySelector('.loader_wrapper')
+    const blocks = document.querySelectorAll('.loader_block')
+    const background = document.querySelector('.loader_background')
+    const nav = document.querySelector('.loader-transition-stage_wrapper')
+
+    // Pages without the loader DOM (e.g. one-off project pages that don't
+    // include the global loader markup) must still boot. Short-circuit
+    // rather than crashing on blocks[0].parentElement / nav.style.* below,
+    // so initPage still runs and lazy videos still get their src set.
+    if (!blocks.length || !background || !nav) {
+      if (wrapper) wrapper.style.display = 'none'
+      resolve()
+      return
+    }
 
     if (lastVisit === today) {
       // User has visited today, skip animation
-      const blocks = document.querySelectorAll('.loader_block')
-      const background = document.querySelector('.loader_background')
-      const nav = document.querySelector('.loader-transition-stage_wrapper')
-
       gsap.set([blocks, background, nav], { opacity: 0 })
       if (wrapper) {
         wrapper.style.display = 'none'
@@ -49,10 +58,7 @@ export const siteLoader = () => {
 
     const tl = gsap.timeline()
     gsap.registerPlugin(Flip)
-    const blocks = document.querySelectorAll('.loader_block')
-    const background = document.querySelector('.loader_background')
     const mainAxis = blocks[0].parentElement
-    const nav = document.querySelector('.loader-transition-stage_wrapper')
     const navHeight = document.querySelector('.nav_menu')?.offsetHeight
     const navWidth = document.querySelector('.nav_menu')?.offsetWidth
 
