@@ -10,17 +10,17 @@ import { addExtraCards } from './CollageExtras'
 // slow automatic turn carries on. On touch screens only sideways drags spin
 // it, so vertical swipes still scroll the page.
 //
-// Everything runs off one clock (gsap.ticker). Stacking (cards behind or in
-// front of the text) comes from tiny 3D z values inside the collage, never
-// z-index changes. The real <h1> stays in the page (invisible, still read by
-// screen readers and search); a decorative copy sits inside the globe.
+// Everything runs off one clock (gsap.ticker). Card stacking comes from tiny
+// 3D z values inside the collage, never z-index changes. The headline is never
+// moved or copied (so it can't jump); it only fades, and stays in the page for
+// screen readers and search.
 
 const BURST = 1.5 // the headline holds this long (to be read), then the work bursts out
 const TEXT_FADE = 0.7 // the headline fades out over this as the work grows
 const OUT_TIME = 1.4 // a card's flight: very fast at first, easing into place
 const GLOBE_SPIN = 0.2 // the globe turns this many radians per second
 const GLOBE_TILT = -0.28
-const TEXT_Z = 10 // cards are at z 0 (back) .. 20 (front); the text is between
+const START_Z = 5 // cards start in the middle of the depth range (z 0 back .. 20 front)
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v))
 const lerp = (a, b, t) => a + (b - a) * t
@@ -72,32 +72,10 @@ export const CollageGlobe = (container) => {
   gsap.set(collage, { transformStyle: 'preserve-3d' })
   gsap.set(sharp, { willChange: 'transform, opacity' })
 
-  // ── The headline inside the globe ──
-  let text = null
-  let textRatio = 0.74
-  if (headline) {
-    const hr = headline.getBoundingClientRect()
-    const cr = collage.getBoundingClientRect()
-    textRatio = cr.width ? hr.width / cr.width : textRatio
-    text = document.createElement('div')
-    text.className = headline.className
-    text.textContent = headline.textContent
-    text.setAttribute('aria-hidden', 'true')
-    const cs = getComputedStyle(headline)
-    Object.assign(text.style, {
-      position: 'absolute',
-      left: '50%',
-      top: '50%',
-      margin: '0',
-      textAlign: cs.textAlign,
-      color: cs.color,
-      pointerEvents: 'none',
-    })
-    collage.appendChild(text)
-    gsap.set(text, { xPercent: -50, yPercent: -50, z: TEXT_Z })
-    // the real headline stays for screen readers and search, just unseen
-    gsap.set(headline, { opacity: 0 })
-  }
+  // ── The headline ──
+  // The real headline stays exactly where it is (no copy, no re-layout, so
+  // it never jumps) and simply fades out as the work bursts out.
+  const text = headline
 
   const setters = (el) => ({
     x: gsap.quickSetter(el, 'x', 'px'),
@@ -143,7 +121,6 @@ export const CollageGlobe = (container) => {
   function measure() {
     W = collage.offsetWidth
     H = collage.offsetHeight
-    if (text) text.style.width = `${textRatio * 100}%`
   }
   measure()
   window.addEventListener('resize', measure)
@@ -244,10 +221,7 @@ export const CollageGlobe = (container) => {
     if (text && !textGone) {
       const p = clamp01((t - BURST) / TEXT_FADE)
       setTextOpacity(1 - p * p * (3 - 2 * p))
-      if (p >= 1) {
-        text.style.visibility = 'hidden'
-        textGone = true
-      }
+      if (p >= 1) textGone = true
     }
     // after a flick: keep spinning, slowing down; tilt springs back
     const dt = Math.min(0.1, Math.max(0, t - lastT))
@@ -285,14 +259,14 @@ export const CollageGlobe = (container) => {
       const uy = gy * GY * persp
       const uScale = base * (0.4 + 0.9 * depth)
 
-      // burst out from the middle, behind the text
+      // burst out from the middle
       const lp = clamp01((t - c.appear) / OUT_TIME)
       const leave = outExpo(lp)
       c.set.x(ux * leave)
       c.set.y(uy * leave)
-      // z only sorts cards against each other and the text; tiny values so
+      // z only sorts the cards against each other; tiny values so
       // the hero's own 3D perspective doesn't scale them
-      c.set.z(lerp(TEXT_Z - 5, depth * 20, leave))
+      c.set.z(lerp(START_Z, depth * 20, leave))
       const sc = lerp(0.04, uScale, leave)
       c.set.scaleX(sc)
       c.set.scaleY(sc)
