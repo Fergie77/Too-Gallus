@@ -12,6 +12,9 @@ import {
   ButtermilkCaseStudySlider,
 } from './Animations/CaseStudySlider'
 import { CollageAnimation } from './Animations/CollageAnimation'
+import { CollageDepthField } from './Animations/CollageDepthField'
+import { CollageGlobe } from './Animations/CollageGlobe'
+import { CollageOrb } from './Animations/CollageOrb'
 import { CTALink } from './Animations/CTALink'
 import { fadeInImage } from './Animations/FadeInImage'
 import { fadeInProjectBlock } from './Animations/FadeInProjectBlock'
@@ -72,6 +75,32 @@ function afterPageTransition(callback) {
   }
 }
 
+// About page hero animation.
+//   'globe'   = the headline stays in the middle; the work bursts out onto a big
+//               sweeping globe around it, passing behind and in front of the text
+//               (CollageGlobe)
+//   'orb'     = the headline dissolves letter by letter into a dot orb; the orb's
+//               bright dots grow into the work, which floats across the hero (CollageOrb)
+//   'burst'   = the original fan-out and turn, then the cards shrink to the centre
+//               and burst out into three floating depth layers (CollageDepthField)
+//   'classic' = the original only: fan-out, spin and fold back in (CollageAnimation)
+// To go back to the old animation, change this to 'classic'.
+// To compare on the live page without changing code, add ?collage=globe, ?collage=orb,
+// ?collage=burst or ?collage=classic to the URL.
+const ABOUT_HERO_ANIMATION = 'globe'
+const ABOUT_HERO_STYLES = ['globe', 'orb', 'burst', 'classic']
+
+function aboutHeroAnimation(s) {
+  const fromUrl = new URLSearchParams(window.location.search).get('collage')
+  const style = ABOUT_HERO_STYLES.includes(fromUrl)
+    ? fromUrl
+    : ABOUT_HERO_ANIMATION
+  if (style === 'globe') CollageGlobe(s)
+  else if (style === 'orb') CollageOrb(s)
+  else if (style === 'burst') CollageDepthField(s)
+  else CollageAnimation(s)
+}
+
 const PAGE_INITS = {
   home: (s) => {
     projectSliderAnimation(s)
@@ -86,7 +115,7 @@ const PAGE_INITS = {
     slideUp(s)
     fadeInImage(s)
     splitText(s)
-    afterPageTransition(() => CollageAnimation(s))
+    afterPageTransition(() => aboutHeroAnimation(s))
     setTimeout(() => ScrollTrigger.refresh(), 500)
   },
   contact: (s) => {
